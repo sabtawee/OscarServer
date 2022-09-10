@@ -1,0 +1,12 @@
+morocc,150,107,6	Script	Book shop	4_M_ARCHER,{
+	mes "ร้านขายหนังสือ";
+	mes "1. ^6666ccExp Book^000000";
+	mes "2. ^6666ccCollection Book^000000";
+	close2;
+	callshop "BOOK_SHOP",1;
+	end;
+OnInit:
+	setunitdata getnpcid(0),UNPC_GROUP_ID,2;
+	waitingroom "[ วิจัย สมุด ]", 0;
+	end;
+}

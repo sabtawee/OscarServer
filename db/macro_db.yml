@@ -1,0 +1,31 @@
+###########################################################################
+# Macro Database
+###########################################################################
+#
+# Macro Settings
+#
+###########################################################################
+# - Filename (string)
+#   Answer (String)
+###########################################################################
+
+Header:
+  Type: MACRO_DB
+  Version: 1
+
+Body:
+  - Id: 1
+    Filename: 7vdZUX8IG.bmp
+    Answer: 7vdZUX8IG
+  - Id: 2
+    Filename: A5Diq.bmp
+    Answer: A5Diq
+  - Id: 3
+    Filename: haxgui63.bmp
+    Answer: haxgui63
+  - Id: 4
+    Filename: jGo1MBN.bmp
+    Answer: jGo1MBN
+  - Id: 5
+    Filename: TubGPO8W.bmp
+    Answer: TubGPO8W

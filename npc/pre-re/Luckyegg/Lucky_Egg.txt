@@ -1,0 +1,49 @@
+function	script	Lucky_Egg_v1	{
+
+	setarray @very_rare_itemlist[0],480056,480058,480069;
+	setarray @rare_itemlist[0],25791,25792,25793;
+	setarray @etc_itemlist[0],12591,11503,11504,12208,14592,1000325,1000326,1000327,1000328,1000337;
+
+	@random = rand(0,100);
+	if(@random < 2) {
+		set .RandomItem, rand( getarraysize( @very_rare_itemlist ) );
+		getitem @very_rare_itemlist[ .RandomItem ],1;
+		announce "คุณ "+strcharinfo(0)+" ได้รับ " + getitemname(@very_rare_itemlist[ .RandomItem ]) + " จาก Oscar Scroll Egg V1 โอกาสออก 0.10%",bc_all,0xF633FF;
+		end;
+	}else if(@random < 30){
+		set .RandomItem, rand( getarraysize( @rare_itemlist ) );
+		getitem @rare_itemlist[ .RandomItem ],1;
+		announce "คุณ "+strcharinfo(0)+" ได้รับ " + getitemname(@rare_itemlist[ .RandomItem ]) + " จาก Oscar Scroll Egg V1",bc_all,0xFF9633;
+		end;
+	}else{
+		set .RandomItem, rand( getarraysize( @etc_itemlist ) );
+		getitem @etc_itemlist[ .RandomItem ],1;
+		//announce "ผู้เล่น "+strcharinfo(0)+" ได้รับ " + getitemname(@etc_itemlist[ .RandomItem ]) + " ",bc_all,0xFFFF00;
+		end;
+	}
+}
+
+function	script	Old_hat_box	{
+
+	setarray @very_rare_itemlist[0],5388,5286,5471;
+	setarray @rare_itemlist[0],5170,5254,5377,5564,5314,5490,18684,5293,5294,5462,5131,5133,5307,5132,5766,5150,5210,5362,5334,5140;
+	setarray @etc_itemlist[0],5133,5307,5132,5766,5150,5210,5362,5334,5140;
+
+	@random = rand(0,100);
+	if(@random < 2) {
+		set .RandomItem, rand( getarraysize( @very_rare_itemlist ) );
+		getitem @very_rare_itemlist[ .RandomItem ],1;
+		announce "คุณ "+strcharinfo(0)+" ได้รับ " + getitemname(@very_rare_itemlist[ .RandomItem ]) + " จาก OLD HAT BOX",bc_all,0xF633FF;
+		end;
+	}else if(@random < 50){
+		set .RandomItem, rand( getarraysize( @rare_itemlist ) );
+		getitem @rare_itemlist[ .RandomItem ],1;
+		announce "คุณ "+strcharinfo(0)+" ได้รับ " + getitemname(@rare_itemlist[ .RandomItem ]) + " จาก OLD HAT BOX",bc_all,0xFF9633;
+		end;
+	}else{
+		set .RandomItem, rand( getarraysize( @etc_itemlist ) );
+		getitem @etc_itemlist[ .RandomItem ],1;
+		announce "คุณ "+strcharinfo(0)+" ได้รับ " + getitemname(@etc_itemlist[ .RandomItem ]) + " จาก OLD HAT BOX",bc_all,0xFF9633;
+		end;
+	}
+}

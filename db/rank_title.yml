@@ -1,0 +1,207 @@
+###########################################################################
+#
+# Whispering Rain
+#
+###########################################################################
+
+Header:
+  Type: RANK_TITLE_DB
+  Version: 1
+
+Body:
+  - Id: 1101
+    RankName: Alephist
+      
+  - Id: 1102
+    RankName: Tetrioht
+    Script: |
+      bonus bAtkRate,5;
+      bonus bMatkRate,5;
+      
+  - Id: 1103
+    RankName: Kaphrat
+    Script: |
+      bonus bAtkRate,7;
+      bonus bMatkRate,7;
+      bonus bAspdRate,5;
+      
+  - Id: 1104
+    RankName: Tzadikt
+    Script: |
+      bonus bAtkRate,9;
+      bonus bMatkRate,9;
+      bonus bAspdRate,7;
+      bonus bCriticalRate,5;
+      
+  - Id: 1105
+    RankName: Qophlite
+    Script: |
+      bonus bAtkRate,15;
+      bonus bMatkRate,15;
+      bonus bAspdRate,12;
+      bonus bCriticalRate,10;
+      bonus bCritAtkRate,20;
+      
+  - Id: 1106
+    RankName: Tauburn
+    Script: |
+      bonus bAtkRate,25;
+      bonus bMatkRate,25;
+      bonus bAspdRate,20;
+      bonus bCriticalRate,20;
+      bonus bCritAtkRate,35;
+      bonus bNoSizeFix;
+      
+  - Id: 1107
+    RankName: Samekh
+    Script: |
+      bonus bNoSizeFix;
+      bonus bAtkRate,35;
+      bonus bMatkRate,35;
+      bonus bAspdRate,50;
+      bonus bCriticalRate,30;
+      bonus bCritAtkRate,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      
+  - Id: 1111
+    RankName: Gimelock
+      
+  - Id: 1112
+    RankName: Peshent
+    Script: |
+      bonus bStr,1;
+      bonus bAgi,1;
+      bonus bVit,1;
+      bonus bInt,1;
+      bonus bDex,1;
+      bonus bLuk,1;
+      
+  - Id: 1113
+    RankName: Yodock
+    Script: |
+      bonus bStr,3;
+      bonus bAgi,3;
+      bonus bVit,3;
+      bonus bInt,3;
+      bonus bDex,3;
+      bonus bLuk,3;
+      
+  - Id: 1114
+    RankName: Lamedhos
+    Script: |
+      bonus bStr,5;
+      bonus bAgi,5;
+      bonus bVit,5;
+      bonus bInt,5;
+      bonus bDex,5;
+      bonus bLuk,5;
+      
+  - Id: 1115
+    RankName: Wawna
+    Script: |
+      bonus bStr,7;
+      bonus bAgi,7;
+      bonus bVit,7;
+      bonus bInt,7;
+      bonus bDex,7;
+      bonus bLuk,7;
+      bonus bSpeedAddRate,10;
+      bonus bDelayrate,-5;
+      
+  - Id: 1116
+    RankName: Hethna
+    Script: |
+      bonus bStr,9;
+      bonus bAgi,9;
+      bonus bVit,9;
+      bonus bInt,9;
+      bonus bDex,9;
+      bonus bLuk,9;
+      bonus bSpeedAddRate,10;
+      bonus bDelayrate,-10;
+      bonus bCastrate,-10;
+      
+  - Id: 1117
+    RankName: Betraida
+    Script: |
+      bonus bStr,15;
+      bonus bAgi,15;
+      bonus bVit,15;
+      bonus bInt,15;
+      bonus bDex,15;
+      bonus bLuk,15;
+      bonus bCastrate,-20;      
+      bonus bSpeedAddRate,25;
+      bonus bDelayrate,-15;
+      bonus bFleeRate,5;
+      
+  - Id: 1121
+    RankName: Daletos
+      
+  - Id: 1122
+    RankName: Nunna
+    Script: |
+      bonus bDef2Rate,5;
+      bonus bMdef2Rate,5;
+      
+  - Id: 1123
+    RankName: Heigent
+    Script: |
+      bonus bDefRate,7;
+      bonus bDef2Rate,7;
+      bonus bMdefRate,7;
+      bonus bMdef2Rate,7;
+      
+  - Id: 1124
+    RankName: Zayinas
+    Script: |
+      bonus bDefRate,9;
+      bonus bDef2Rate,9;
+      bonus bMdefRate,9;
+      bonus bMdef2Rate,9;
+      bonus bMaxHPrate,5;
+      bonus bMaxSPrate,5;
+      
+  - Id: 1125
+    RankName: Reshbal
+    Script: |
+      bonus bDefRate,12;
+      bonus bDef2Rate,12;
+      bonus bMdefRate,12;
+      bonus bMdef2Rate,12;
+      bonus bMaxHPrate,10;
+      bonus bMaxSPrate,10;
+      bonus bHPrecovRate,5;
+      bonus bSPrecovRate,5; 
+      
+  - Id: 1126
+    RankName: Sinpathy
+    Script: |
+      bonus bDefRate,20;
+      bonus bDef2Rate,20;
+      bonus bMdefRate,20;
+      bonus bMdef2Rate,20;
+      bonus bMaxHPrate,20;
+      bonus bMaxSPrate,20;
+      bonus bHPrecovRate,7;
+      bonus bSPrecovRate,7;
+      bonus bCritDefRate,20;
+      bonus bCriticalDef,20;
+      
+  - Id: 1127
+    RankName: Ayingott
+    Script: |
+      bonus bDefRate,30;
+      bonus bDef2Rate,30;
+      bonus bMdefRate,30;
+      bonus bMdef2Rate,30;
+      bonus bMaxHPrate,30;
+      bonus bMaxSPrate,30;
+      bonus bHPrecovRate,10;
+      bonus bSPrecovRate,10;
+      bonus bCritDefRate,30;
+      bonus bCriticalDef,30;
+      bonus bNearAtkDef,10;
+      bonus bLongAtkDef,10;
+      bonus bMagicAtkDef,10;
+      bonus bMiscAtkDef,10; 

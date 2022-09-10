@@ -1,0 +1,37 @@
+-	script	Sacred Altar#1::OutsideFlags8	722,{
+
+	set .@GID, getcastledata("payg_cas04",1);
+
+	if (.@GID == 0) {
+		mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+		mes " ";
+		mes "1. ตามคำสั่งของ The Divine แห่งราชอาณาจักร Rune-Midgarts";
+		mes " เราขอประกาศว่า";
+		mes " ปราสาทหลังนี้ ยังไม่มีผู้ใดครอบครอง";
+		mes " ";
+		mes "2. ผู้ใดที่สามารถ";
+		mes " เอาชนะสงสรามและสามารถ";
+		mes " ทำลาย Emperium ลงได้";
+		mes " จะเป็นผู้ที่ครอบครัว";
+		mes " ปราสาทหลังนี้";
+		close;
+	}
+
+	mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+	mes " ";
+	mes "1. ตามคำสั่งของ The Divine แห่งราชอาณาจักร Rune-Midgarts";
+	mes " เราขออนุมัติว่าสถานที่แห่งนี้";
+	mes " เป็นพื้นที่ส่วนตัวของ ^ff0000"+getguildname(.@GID)+"^000000 Guild.";
+	mes " ";
+	mes "2. Guild Master แห่ง ^ff0000"+getguildname(.@GID)+"^000000 Guild ";
+	mes " คือ ^ff0000"+getguildmaster(.@GID)+"^000000";
+	mes " หากมีใครก็ตามที่ต้องการพิสูจน์ความแข็งแกร่ง";
+	mes " โปรดหยิบดาบที่อยู่ในมือขึ้นมาต่อสู้ด้วยศักศรีดิ์และเกียรติยศ";
+	close;
+
+OnRecvCastlePy04:
+	flagemblem getcastledata("payg_cas04",1);
+	end;
+}
+
+morocc,133,59,4	duplicate(OutsideFlags8)	Sacred Altar#40	722

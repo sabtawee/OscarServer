@@ -1,0 +1,169 @@
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Item Database
+###########################################################################
+#
+# Item Settings
+#
+###########################################################################
+# - Id                      Item ID.
+#   AegisName               Server name to reference the item in scripts and lookups, should use no spaces.
+#   Name                    Name in English for displaying as output.
+#   Type                    Item type. (Default: Etc)
+#   SubType                 Weapon or Ammo type. (Default: 0)
+#   Buy                     Buying price. When not specified, becomes double the sell price. (Default: 0)
+#   Sell                    Selling price. When not specified, becomes half the buy price. (Default: 0)
+#   Weight                  Item weight. Each 10 is 1 weight. (Default: 0)
+#   Attack                  Weapon's attack. (Default: 0)
+#   MagicAttack             Weapon's magic attack. (Default: 0)
+#   Defense                 Armor's defense. (Default: 0)
+#   Range                   Weapon's attack range. (Default: 0)
+#   Slots                   Available slots in item. (Default: 0)
+#   Jobs                    Jobs that can equip the item. (Map default is 'All: true')
+#   Classes                 Upper class types that can equip the item. (Map default is 'All: true')
+#   Gender                  Gender that can equip the item. (Default: Both)
+#   Locations               Equipment's placement. (Default: None)
+#   WeaponLevel             Weapon level. (Default: 0)
+#   EquipLevelMin           Minimum required level to equip. (Default: 0)
+#   EquipLevelMax           Maximum level that can equip. (Default: 0)
+#   Refineable              If the item can be refined. (Default: false)
+#   View                    View sprite of an item. (Default: 0)
+#   AliasName               Another item's AegisName that will be sent to the client instead of this item's AegisName. (Default: null)
+#   Flags:                  Item flags. (Default: null)
+#     BuyingStore           If the item is available for Buyingstores. (Default: false)
+#     DeadBranch            If the item is a Dead Branch. (Default: false)
+#     Container             If the item is part of a container. (Default: false)
+#     UniqueId              If the item is a unique stack. (Default: false)
+#     BindOnEquip           If the item is bound to the character upon equipping. (Default: false)
+#     DropAnnounce          If the item has a special announcement to self on drop. (Default: false)
+#     NoConsume             If the item is consumed on use. (Default: false)
+#     DropEffect            If the item has a special effect on the ground when dropped by a monster. (Default: None)
+#   Delay:                  Item use delay. (Default: null)
+#     Duration              Duration of delay in seconds.
+#     Status                Status Change used to track delay. (Default: None)
+#   Stack:                  Item stack amount. (Default: null)
+#     Amount                Maximum amount that can be stacked.
+#     Inventory             If the stack is applied to player's inventory. (Default: true)
+#     Cart                  If the stack is applied to the player's cart. (Default: false)
+#     Storage               If the stack is applied to the player's storage. (Default: false)
+#     GuildStorage          If the stack is applied to the player's guild storage. (Default: false)
+#   NoUse:                  Conditions when the item is unusable. (Default: null)
+#     Override              Group level to override these conditions.
+#     Sitting               If the item can not be used while sitting. (Default: false)
+#   Trade:                  Trade restrictions. (Default: null)
+#     Override              Group level to override these conditions.
+#     NoDrop                If the item can not be dropped. (Default: false)
+#     NoTrade               If the item can not be traded. (Default: false)
+#     TradePartner          If the item can not be traded to the player's partner. (Default: false)
+#     NoSell                If the item can not be sold. (Default: false)
+#     NoCart                If the item can not be put in a cart. (Default: false)
+#     NoStorage             If the item can not be put in a storage. (Default: false)
+#     NoGuildStorage        If the item can not be put in a guild storage. (Default: false)
+#     NoMail                If the item can not be put in a mail. (Default: false)
+#     NoAuction             If the item can not be put in an auction. (Default: false)
+#   Script                  Script to execute when the item is used/equipped. (Default: null)
+#   EquipScript             Script to execute when the item is equipped. (Default: null)
+#   UnEquipScript           Script to execute when the item is unequipped or when a rental item expires. (Default: null)
+#        bonus2 bExpAddRace,RC_All,5;
+#        bonus2 bDropAddRace,RC_All,5;
+###########################################################################
+
+Header:
+  Type: ITEM_DB
+  Version: 2
+
+Body:
+  - Id: 1200000
+    AegisName: C_Katar_Weapon
+    Name: Costume Katar Weapon  # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 103
+  - Id: 1200001
+    AegisName: C_Aex_Weapon
+    Name: Costume Aex Weapon  # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 104
+  - Id: 1200002
+    AegisName: C_Guitar_Weapon
+    Name: Costume Guitar Weapon  # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 105
+  - Id: 1200003
+    AegisName: C_Guitar_Classic_Weapon
+    Name: Costume Guitar Classic Weapon  # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 106
+  - Id: 1200004
+    AegisName: C_Book_Weapon
+    Name: Costume Book Weapon  # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 107
+  - Id: 1200005
+    AegisName: C_Black_Spell_Weapon
+    Name: Costume Black Spell Weapon # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 108
+  - Id: 1200006
+    AegisName: C_Pink_Fan_Weapon
+    Name: Costume Pink Fan Weapon # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 109
+  - Id: 1200007
+    AegisName: C_Black_Dancer_Weapon
+    Name: Costume Black Dancer Weapon # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 110
+  - Id: 1200008
+    AegisName: C_Hunter_Weapon
+    Name: Costume Hunter Weapon # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 111
+  - Id: 1200009
+    AegisName: C_Monk_Weapon
+    Name: Costume Monk Weapon # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 112
+  - Id: 1200010
+    AegisName: C_Claw_Weapon
+    Name: Costume Claw Weapon # !todo check english name
+    Type: ShadowGear
+    Locations:
+      Shadow_Weapon: true
+    Refineable: true
+    View: 113

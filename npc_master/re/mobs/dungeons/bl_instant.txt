@@ -1,0 +1,47 @@
+//==================================================
+//Varmundt's Biosphere - Ice
+//==================================================
+bl_ice,0,0	monster	Glacial Ice Titan	21564,35,5000
+bl_ice,0,0	monster	Glacial Siroma	21565,35,5000
+bl_ice,0,0	monster	Glacial Snowier	21566,35,5000
+bl_ice,0,0	monster	Glacial Centipede	21567,35,5000
+bl_ice,0,0	monster	Glacial Aqua Elemental	21568,45,5000
+bl_ice,0,0	monster	Glacial Angelgolt	21569,25,5000
+bl_ice,0,0	monster	Glacial Rhyncho	21570,15,5000
+bl_ice,0,0	boss_monster	Glacial Ktullanux	21571,1,3600000,3000000
+
+//==================================================
+//Varmundt's Biosphere - Fire
+//==================================================
+bl_lava,0,0	monster	Blazing Explosion	21556,40,5000
+bl_lava,0,0	monster	Blazing Sky Deleter	21557,40,5000
+bl_lava,0,0	monster	Blazing Jakk	21558,30,5000
+bl_lava,0,0	monster	Blazing Lava Golem	21559,35,5000
+bl_lava,0,0	monster	Blazing Majoruros	21560,30,5000
+bl_lava,0,0	monster	Blazing Hydrolancer	21561,15,5000
+bl_lava,0,0	monster	Blazing Black Acidus	21562,35,5000
+bl_lava,0,0	boss_monster	Blazing Detardeurus	21563,1,3600000,3000000
+
+//==================================================
+//Varmundt's Biosphere - Grass
+//==================================================
+bl_grass,0,0	monster	Verdant Corinus	21548,40,5000
+bl_grass,0,0	monster	Verdant Pinguicula	21549,45,5000
+bl_grass,0,0	monster	Verdant Hunter Fly	21550,25,5000
+bl_grass,0,0	monster	Verdant Rocker	21551,40,5000
+bl_grass,0,0	monster	Verdant Savage	21552,40,5000
+bl_grass,0,0	monster	Verdant Flora	21553,25,5000
+bl_grass,0,0	monster	Verdant Hill Wind	21554,45,5000
+bl_grass,0,0	boss_monster	Verdant Mistress	21555,1,3600000,3000000
+
+//==================================================
+//Varmundt's Biosphere - Death
+//==================================================
+bl_death,0,0	monster	Grave Ancient Mummy	21572,30,5000
+bl_death,0,0	monster	Grave Lude	21573,35,5000
+bl_death,0,0	monster	Grave Ragged Zombie	21574,30,5000
+bl_death,0,0	monster	Grave Wraith Dead	21575,35,5000
+bl_death,0,0	monster	Grave Flame Skull	21576,35,5000
+bl_death,0,0	monster	Grave Banshee	21577,45,5000
+bl_death,0,0	monster	Grave Abysmal Knight	21578,15,5000
+bl_death,0,0	boss_monster	Grave Lord of the Dead	21579,1,3600000,3000000

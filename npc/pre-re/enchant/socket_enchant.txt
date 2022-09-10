@@ -1,0 +1,370 @@
+//===== rAthena Script =======================================
+//= Episode 11.1 Socket Enchant NPC
+//===== By: ==================================================
+//= rAthena Dev Team
+//===== Current Version: =====================================
+//= 2.0a
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= [Official Conversion]
+//= Adds slots to selected weapons and armor.
+//===== Additional Comments: =================================
+//= 0.1a added missing L_No: to 2 funcs [Lupus]
+//= 0.1b Removed duplicates [Toms]
+//= 0.2 Added missing next;'s [Evera]
+//= 0.3 Fixed Zweihander[+] id [Lupus]
+//= 1.0 Fixed ingredients check [Lupus]
+//= 1.1 Updated to official. [SinSloth]
+//= 1.1b Optimized/cleaned [ultramage]
+//= 1.2 Fixed some typos and a nasty bug. [SinSloth]
+//= 1.3 Fixed a wrong item ID with Sphinx Hat. [SinSloth]
+//= 1.4 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
+//= 1.5 Removed Ontouch trigger area from NPCs. [L0ne_W0lf]
+//= 1.6 Replaced effect numerics with constants. [Samuray22]
+//= 1.7 Adjusted prices on some armor and weapons. [L0ne_W0lf]
+//= 1.8 Added missing Gae Bolg and Dragon Slayer. [Kisuka]
+//= 1.9 Moved Episode 12 items to separate NPC.
+//=     Some cleanup & optimization. [Gepard]
+//= 2.0 Duplicates now spawn from floating NPCs. [L0ne_W0lf]
+//= 2.0a Added 'disable_items' command. [Euphy]
+//============================================================
+
+-	script	Seiyablem#dummy::SocketEnchant	-1,{
+	if (checkweight(1201,1) == 0)
+	{
+		mes "- ÃÍÊÑ¡¤ÃÙè !! -";
+		mes "- ¢³Ğ¹Õé¤Ø³¡ÓÅÑ§áº¡ -";
+		mes "- äÍà·çÁÁÒ¡à¡Ô¹ä» -";
+		mes "- â»Ã´¹ÓäÍà·çÁä»½Ò¡¤ÅÑ§ -";
+		mes "- áÅéÇ¡ÅÑºÁÒÅÍ§ÍÕ¡¤ÃÑé§ -";
+		close;
+	}
+	mes "[Seiyablem]";
+	mes "©Ñ¹¤×ÍÇÔÈÇ¡Ã·ÕèÊÒÁÒÃ¶à¾ÔèÁ Slot ãËé¡ÑºÍÒÇØ¸áÅĞªØ´à¡ÃÒĞ¤Ø³ä´é.";
+	mes "©Ñ¹·ÓäËéäÁè¿ÃÕËÃÍ¡¹Ğ áÅĞÍÕ¡ÍÂèÒ§ãªèÇèÒ¨ĞÊÓàÃç¨àÊÁÍä» ÁÑ¹¡çÂÑ§ÁÕÊÔ·¸ÔìÅéÁàËÅÇä´é.";
+	next;
+	mes "[Seiyablem]";
+	mes "ÁÑ¹ÍÒ¨¨Ğ´ÙàËÁ×Í¹§èÒÂ¹Ğ áµè·Õè¨ÃÔ§áÅéÇÁÑ¹ÁÕ¤ÇÒÁ«Ñº«éÍ¹ÁÒ¡.";
+	mes "¶éÒ¤Ø³Ê¹ã¨ã¹ºÃÔ¡ÒÃ¢Í§àÃÒ ¡çä»ÅØÂ¡Ñ¹ä´éàÅÂ.";
+	next;
+	switch( select( "~ à¾ÔèÁ Slot ãËé¡ÑºÍÒÇØ¸","~ à¾ÔèÁ Slot ãËé¡ÑºªØ´à¡ÃÒĞ","~ ¢éÍÁÙÅ¡ÒÃà¾ÔèÁ Slot","~ Â¡àÅÔ¡Ê¹·¹Ò" ))
+	{
+		case 1:
+			mes "[Seiyablem]";
+			mes "¤Ø³µéÍ§¡ÒÃà¾ÔèÁ slot ãËé¡ÑºÍÒÇØ¸¢Í§¤Ø³§Ñé¹ËÃ×Í?";
+			mes "©Ñ¹ÁÕãËéàÅ×Í¡ËÅÒÂ»ÃĞàÀ·µÒÁÃĞ´Ñº¤ÇÒÁÂÒ¡, ÃĞ´Ñº C äÁèÂÒ¡à·èÒäËÃèáµèÃĞ´Ñº S àÃÕÂ¡ä´éÇèÒÂÒ¡àÅÂ·Õà´ÕÂÇ.";
+			mes "¤Ø³µéÍ§¡ÒÃãËé©Ñ¹à¾ÔèÁ slot ã¹ÃĞ´ÑºäË¹?";
+			next;
+			switch( select( "~ ÃĞ´Ñº C","~ ÃĞ´Ñº B","~ ÃĞ´Ñº A","~ ÃĞ´Ñº S" ))
+			{
+				case 1:
+					mes "[Seiyablem]";
+					mes "ÃĞ´Ñº C §Ñé¹ËÃÍ?";
+					mes "µÍ¹¹Õé ©Ñ¹ÊÒÁÒÃ¶·ÓãËé¤Ø³ä´é áµèÁÑ¹ÁÕËÅÒ¡ËÅÒÂÃÒÂ¡ÒÃ ¡ÃØ³ÒàÅ×Í¡ÁÒ 1 ÃÒÂ¡ÒÃ¨Ò¡ÍÒÇØ¸·Õè©Ñ¹ÊÒÁÒÃ¶à¾ÔèÁ slot ãËéä´é.";
+					next;
+					switch(select("~ Trident:~ Rope:~ Violin"))
+					{
+						case 1: callfunc "Func_Socket",1460,1461,40,66,200,1010,10;
+						case 2: callfunc "Func_Socket",1950,1951,40,66,200,1010,10;
+						case 3: callfunc "Func_Socket",1901,1902,40,66,200,1010,10;
+					}
+				case 2:
+					mes "[Seiyablem]";
+					mes "ÃĞ´Ñº B ËÃÍ?";
+					mes "§Ñé¹ËÃÍ àÍÒáºº¹Õéãªè»èĞ ÁÑ¹àÊÕèÂ§¡ÇèÒÃĞ´Ñº·Õè¼èÒ¹ÁÒ¹Ğ.";
+					mes "¡ÃØ³ÒàÅ×Í¡ ÍÒÇØ¸·Õè¤Ø³¨ĞãËéàÃÒà¾ÔèÁ Slot ãËé 1 ªÔé¹.";
+					next;
+					switch(select("~ Chain:~ Gladius:~ Gakkung Bow:~ Pike:~ Haedonggum:~ Lute:~ Wire:~ Waghnakh:~ Arbalest Bow"))
+					{
+						case 1: callfunc "Func_Socket",1519,1520,40,61,300,1010,10;
+						case 2: callfunc "Func_Socket",1219,1220,40,61,300, 984, 1,999,5;
+						case 3: callfunc "Func_Socket",1714,1716,40,61,300, 984, 2,999,5;
+						case 4: callfunc "Func_Socket",1407,1408,40,61,200,1010,10;
+						case 5: callfunc "Func_Socket",1123,1128,40,61,300, 984, 2,999,5;
+						case 6: callfunc "Func_Socket",1905,1906,40,61,300,1011,10;
+						case 7: callfunc "Func_Socket",1954,1955,40,61,300,1011,10;
+						case 8: callfunc "Func_Socket",1801,1802,40,61,300,1010,10;
+						case 9: callfunc "Func_Socket",1713,1715,40,61,300, 984, 2,999,5;
+					}
+				case 3:
+					mes "[Seiyablem]";
+					mes "âÍéÇÇÇÇ..ÃĞ´Ñº A.";
+					mes "ÁÑ¹ÁÕ¤ÇÒÁàÊÕèÂ§ÊÙ§ÁÒ¡¹Ğ!";
+					mes "¶éÒ¤Ø³¾ÃéÍÁ·Õè¨ĞàÊÕèÂ§ ¡çàÅ×Í¡ÍÒÇØ¸·Õè¤Ø³¨Ğà¾ÔèÁ Slot ÁÒ 1 ÃÒÂ¡ÒÃ";
+					next;
+					switch(select("~ Hunter Bow:~ Survivor's Rod(INT):~ Zweihander:~ Flamberge:~ Infiltrator:~ Ballista:~ Stunner:~ Berserk:~ Claymore"))
+					{
+						case 1: callfunc "Func_Socket",1718,1726,40,61,500,984,2,999,10;
+						case 2: callfunc "Func_Socket",1619,1620,40,61,500,984,5,999,10;
+						case 3: callfunc "Func_Socket",1168,1171,40,61,800,984,5,999,10;
+						case 4: callfunc "Func_Socket",1129,1149,40,61,500,984,2,999,10;
+						case 5: callfunc "Func_Socket",1261,1266,40,61,700,984,5,999,10;
+						case 6: callfunc "Func_Socket",1722,1727,40,61,500,984,5,999,10;
+						case 7: callfunc "Func_Socket",1522,1532,40,61,500,984,2,999,10;
+						case 8: callfunc "Func_Socket",1814,1816,40,61,500,984,5,999,10;
+						case 9: callfunc "Func_Socket",1163,1172,40,61,500,984,2,999,10; // NPC says "5 Oridecon" (Aegis) but takes only 2
+					}
+				case 4:
+					mes "[Seiyablem]";
+					mes "ÇéÒÒÒÒÒÒÒÒÒÒÒ";
+					mes "ÃĞ´Ñº S §Ñé¹ËÃÍ!!!";
+					mes "ÁÑ¹¤§à»ç¹àÃ×èÍ§ÁËÑÈ¨ÃÃÂìÁÒ¡ ¶éÒËÒ¡ÁÑ¹·ÓÊÓàÃç¨.";
+					mes "âÍà¤...¶éÒ¤Ø³¾ÃéÍÁ ¡çàÅ×Í¡ÃÒÂ¡ÒÃÍÒÇØ¸ÁÒ 1 ÃÒÂ¡ÒÃ";
+					next;
+					switch(select("~ Gungnir:~ Poison Knife:~ Ice Pick:~ Sucsamad:~ Ginnungagap:~ Cutlas:~ Crescent Scythe:~ Survivor's Rod(DEX)"))
+					{
+						case 1: callfunc "Func_Socket", 1413, 1418,40,51,1000,984,5,999,10;
+						case 2: callfunc "Func_Socket", 1239,13016,40,51,1000,984,5,999,10;
+						case 3: callfunc "Func_Socket", 1230,13017,40,51,2000,984,5,999,10;
+						case 4: callfunc "Func_Socket", 1236,13018,40,51,1000,984,5,999,10;
+						case 5: callfunc "Func_Socket",13002,13019,40,51,1000,984,5,999,10;
+						case 6: callfunc "Func_Socket", 1135,13400,40,51,1000,984,5,999,10;
+						case 7: callfunc "Func_Socket", 1466, 1476,40,51,1000,984,5,999,10;
+						case 8: callfunc "Func_Socket", 1617, 1618,40,51,2000,984,5,999,10;
+					}
+			}
+		case 2:
+			mes "[Seiyablem]";
+			mes "¤Ø³àÅ×Í¡·Õè¨Ğà¾ÔèÁ Slot ãËé¡ÑºªØ´à¡ÃÒĞ§Ñé¹ËÃ×Í";
+			mes "á¹è¹Í¹ äÁèÁÕ»Ñ­ËÒ.";
+			mes "ªØ´à¡ÃÒĞ·Õè¨ĞãËéà¾ÔèÁ Slot ãËé ÁÑ¹ÁÕ 4 ÃĞ´ÑºµÒÁ¤ÇÒÁÂÒ¡¹Ğ";
+			mes "ÃĞ´Ñº C äÁèÂÒ¡à·èÒäËÃèáµèÃĞ´Ñº S ÂÒ¡¾ÍÊÁ¤ÇÃ.";
+			mes "¤Ø³µéÍ§¡ÒÃ¨Ğà¾ÔèÁ Slot ·ÕèÃĞ´ÑºäË¹";
+			next;
+			switch( select( "~ ÃĞ´Ñº C","~ ÃĞ´Ñº B","~ ÃĞ´Ñº A","~ ÃĞ´Ñº S" ))
+			{
+				case 1:
+					mes "[Seiyablem]";
+					mes "ªØ´à¡ÃÒĞÃĞ´Ñº C...äÁèÁÕ»Ñ­ËÒ";
+					mes "ÁÑ¹¤§´ÙàËÁÒĞÊÁ.";
+					mes "àÅ×Í¡ªØ´à¡ÃÒĞ·Õè¤Ø³µéÍ§¡ÒÃ¨Ğà¾ÔèÁ Slot";
+					next;
+					switch(select("~ Mantle:~ Coat:~ Circlet:~ Biretta"))
+					{
+						case 1: callfunc "Func_Socket",2307,2308,40,66,200,999,3;
+						case 2: callfunc "Func_Socket",2309,2310,40,66,200,999,3;
+						case 3: callfunc "Func_Socket",2232,2233,40,66,200,999,3;
+						case 4: callfunc "Func_Socket",2216,2217,40,66,200,999,3;
+					}
+				case 2:
+					mes "[Seiyablem]";
+					mes "¤Ø³àÅ×Í¡·Õè¤ÇÒÁàÊÕèÂ§ÃĞ´Ñº B §Ñé¹ËÃÍ.";
+					mes "ä´é.áÅéÇ¤Ø³µéÍ§¡ÒÃà¾ÔèÁ Slot ªÔé¹äË¹ÅĞ";
+					next;
+					switch(select("~ Mirror Shield:~ Chain Mail:~ Saint Robe:~ Silk Robe:~ Boots:~ Shoes:~ Muffler:~ Guard:~ Buckler:~ Shield:~ Bongun Hat"))
+					{
+						case 1:  callfunc "Func_Socket",2107,2108,40,61,250,999,5;
+						case 2:  callfunc "Func_Socket",2314,2315,40,61,250,999,5;
+						case 3:  callfunc "Func_Socket",2325,2326,40,61,300,999,5;
+						case 4:  callfunc "Func_Socket",2321,2322,40,61,300,999,5;
+						case 5:  callfunc "Func_Socket",2405,2406,40,61,300,999,5;
+						case 6:  callfunc "Func_Socket",2403,2404,40,61,300,999,5;
+						case 7:  callfunc "Func_Socket",2503,2504,40,61,300,999,5;
+						case 8:  callfunc "Func_Socket",2101,2102,40,61,300,999,5;
+						case 9:  callfunc "Func_Socket",2103,2104,40,61,300,999,5;
+						case 10: callfunc "Func_Socket",2105,2106,40,61,250,999,5;
+						case 11: callfunc "Func_Socket",5046,5168,40,61,250,999,5;
+					}
+				case 3:
+					mes "[Seiyablem]";
+					mes "âÍéâË...ÃĞ´Ñº A";
+					mes "¤ÇÒÁàÊÕèÂ§ÁÑ¹ÊÙ§ÍÂÙè¹Ğ!";
+					mes "àÍÒà¶ÍĞ àÅ×Í¡ªØ´à¡ÃÒĞ·Õè¤Ø³µéÍ§¡ÒÃ¨Ğà¾ÔèÁ Slot ÁÒàÅÂ";
+					next;
+					switch(select("~ Gemmed Sallet:~ Bucket Hat:~ Memory Book:~ Tights:~ Legion Plate Armor:~ Full Plate:~ Thief Clothes:~ Greaves:~ Coif:~ Manteau:~ Helm:~ Ninja Suit:~ Orc Helm:~ Ancient Cape:~ Monk Hat:~ Golden Gear:~ Brooch:~ Munak Hat"))
+					{
+						case 1:  callfunc "Func_Socket",2230,2231,40,61,400,985,1;
+						case 2:  callfunc "Func_Socket",5114,5120,40,61,400,985,1;
+						case 3:  callfunc "Func_Socket",2109,2121,40,61,400,985,1;
+						case 4:  callfunc "Func_Socket",2330,2331,40,61,400,985,1;
+						case 5:  callfunc "Func_Socket",2341,2342,40,61,400,985,1;
+						case 6:  callfunc "Func_Socket",2316,2317,40,61,400,985,1;
+						case 7:  callfunc "Func_Socket",2335,2336,40,61,400,985,1;
+						case 8:  callfunc "Func_Socket",2411,2412,40,61,400,985,1;
+						case 9:  callfunc "Func_Socket",5092,5093,40,61,400,985,1;
+						case 10: callfunc "Func_Socket",2505,2506,40,61,400,985,1;
+						case 11: callfunc "Func_Socket",2228,2229,40,61,400,985,1;
+						case 12: callfunc "Func_Socket",2337,2359,40,61,400,985,1;
+						case 13: callfunc "Func_Socket",2299,5157,40,61,400,985,1;
+						case 14: callfunc "Func_Socket",2507,2525,40,61,400,985,1;
+						case 15: callfunc "Func_Socket",2251,5158,40,61,400,985,1;
+						case 16: callfunc "Func_Socket",2246,5159,40,61,400,985,1;
+						case 17: callfunc "Func_Socket",2605,2625,40,61,400,985,1;
+						case 18: callfunc "Func_Socket",2264,5167,40,61,300,985,1;
+					}
+				case 4:
+					mes "[Seiyablem]";
+					mes "Í×Á...ÃĞ´Ñº S";
+					mes "¤Ø³á¹èã¨áÅéÇËÃ×Í·Õè¨ĞàÅ×Í¡¤ÇÒÁàÊÕèÂ§ã¹ÃĞ´Ñº¹Õé";
+					mes "àÍÒà¶ÍĞ¹Ğ ©Ñ¹¨Ğ¾ÂÒÁ·ÓÁÑ¹ãËé´Õ·ÕèÊØ´ àÅ×Í¡ªØ´à¡ÃÒĞ·Õè¤Ø³µéÍ§¡ÒÃÁÒ 1 ªÔé¹";
+					next;
+					switch(select("~ Majestic Goat:~ Spiky Band:~ Bone Helm:~ Corsair:~ Crown:~ Tiara:~ Sphinx Hat:~ Robe of Cast:~ Earring:~ Ring:~ Bow Thimble"))
+					{
+						case 1:  callfunc "Func_Socket",2256,5160,40,51,2000,985,2;
+						case 2:  callfunc "Func_Socket",2258,5161,40,51,2000,985,2;
+						case 3:  callfunc "Func_Socket",5017,5162,40,51,2000,985,2;
+						case 4:  callfunc "Func_Socket",5019,5163,40,51,2000,985,2;
+						case 5:  callfunc "Func_Socket",2235,5165,40,51,2000,985,2;
+						case 6:  callfunc "Func_Socket",2234,5164,40,51,2000,985,2;
+						case 7:  callfunc "Func_Socket",5053,5166,40,51,1000,985,2;
+						case 8:  callfunc "Func_Socket",2343,2360,40,51,1000,985,2;
+						case 9:  callfunc "Func_Socket",2602,2622,40,51,1000,985,2;
+						case 10: callfunc "Func_Socket",2601,2621,40,51,1000,985,2;
+						case 11: callfunc "Func_Socket",2619,2671,40,51,1000,985,2;
+					}
+			}
+		case 3:
+			mes "[Seiyablem]";
+			mes "àÂÕèÂÁ.ÍÑ¹·Õè¨ÃÔ§©Ñ¹äÁè¤èÍÂÁÕÈÔÅ»Ğ ã¹¡ÒÃà¾ÔèÁ Slot ÊÑ¡à·èÒäËÃè";
+			mes "ÁÑ¹à»ç¹¡ÃĞºÇ¹¡ÒÃ·Õè«Ñº«éÍ¹ áÅĞÊè§¼Å¡ÃĞ·ºÁÒ¡ÁÒÂ.";
+			mes "©Ñ¹¨ĞºÍ¡ÍĞäÃãËé¹Ğ";
+			next;
+			mes "[Seiyablem]";
+			mes "ã¹ºÒ§àÁ×Í§, ÁÑ¹¨ĞÁÕ¤ÇÒÁÊÓàÃç¨µÒÁÃĞ´Ñº¢Í§ÍØ»¡Ã³ì ·ÕèÁÕ¤ÇÒÁÂÒ¡§èÒÂã¹¡ÒÃËÒ.";
+			mes "ã¹àÁ×Í§Í×è¹æ ÁÑ¡¨Ğ·ÓµÃ§¢éÒÁ¡Ñº¤ÇÒÁà»ç¹¨ÃÔ§.";
+			mes "ÁÑ¹äÁèä´éÁÕ¤ÇÒÁ¾ÔàÈÉÍĞäÃàÅÂ äÍ¡ÒÃà¾ÔèÁ Slot à¹ÕèÂ";
+			next;
+			mes "[Seiyablem]";
+			mes "âÍéÇ..à¡×ÍºÅ×Á ÂÑ§ÁÕÊÔè§ÊÓ¤Ñ­ÍÕ¡ÊÔè§·Õ¤Ø³¤ÇÃ¨ĞÃÙé.";
+			mes "¶éÒ¤Ø³ãËé©Ñ¹à¾ÔèÁ Slot ã¹ÍØ»¡Ã³ìºÒ§ÍÂèÒ§, ¤Ø³µéÍ§àªê¤ãËéá¹èã¨ÇèÒ¤Ø³äÁèä´éÊÇÁãÊèÁÑ¹ÍÂÙè.";
+			next;
+			mes "[Seiyablem]";
+			mes "¹Õè¤×ÍµÑÇÍÂèÒ§:¶éÒ¤Ø³ÁÕ +7 Manteau áÅĞ Manteau ·ÕèáÊ¹¨Ğ¸ÃÃÁ´Ò ÍÂÙèã¹ªèÍ§ÊÇÁãÊè¢Í§¤Ø³, ©Ñ¹¨ĞÊØèÁàÅ×Í¡ã¹ 2 ªÔé¹¹ÕéÁÒ·Ó¡ÒÃà¾ÔèÁ Slot.";
+			mes "©Ğ¹Ñé¹ ¨ÓäÇé ÃĞÇÑ§ãËé´Õ ¶éÒ©Ñ¹ÊØèÁàÍÒ +7 ¢Í§¤Ø³ÁÒ ÍÂèÒÁÒâ·É©Ñ¹ÅĞ¡Ñ¹ à¾ÃÒĞ©Ñ¹àµ×Í¹áÅéÇ.";
+			next;
+			mes "[Seiyablem]";
+			mes "ÍÕ¡ÃÍº¹Ğ, ^FF0000â»Ã´ÃĞÇÑ§ÍØ»¡Ã³ì·Õè¤Ø³µéÍ§¡ÒÃãËéà¾ÔèÁ Slot ´ÙãËéá¹èã¨ÇèÒ ¶Í´áÅéÇËÃ×ÍÂÑ§^000000.";
+			mes "ÍØ»¡Ã³ì·ÕèÁÕª×èÍà´ÕÂÇ¡Ñ¹¡ÑºÊÔè§·Õè¤Ø³¨Ğà¾ÔèÁ Slot ¤ÇÃà¡çº¢Í§àËÅèÒ¹Ñé¹äÇéã¹ªèÍ§à¡çº¢Í§ã¹ Kafra, à¡çºÁÑ¹«Ğ";
+			close;
+		case 4:
+			mes "[Seiyablem]";
+			mes "ÁÑ¹ãªéäÁèÂÒ¡ËÃÍ¡¹Ğ.";
+			mes "¶éÒàÁ×èÍäËÃè·Õè¤Ø³µéÍ§¡ÒÃ·Õè¨ĞãËé©Ñ¹à¾ÔèÁ Slot ãËéÅĞ¡ç, ¡ç¡ÅÑºÁÒËÒ©Ñ¹¹Õè...à¢éÒã¨äËÁ?.";
+			mes "ºêÒº ºÒÂ.....";
+			close;
+	}
+}
+
+function	script	Func_Socket	{
+	.@item_id = getarg(0);
+	.@zeny_req = getarg(4);
+	setarray .@item_req[0], getarg(5), getarg(7,0);
+	setarray .@req_amount[0], getarg(6), getarg(8,0);
+
+	disable_items;
+	mes "[Seiyablem]";
+	mes "¤Ø³µéÍ§¡ÒÃãËé©Ñ¹à¾ÔèÁ Slot ã¹ "+ getitemname(.@item_id) +"?";
+	mes "â»Ã´¹Ó ÊÔè§·Õè©Ñ¹µéÍ§¡ÒÃàËÅèÒ¹Õé ^FF0000"+ .@req_amount[0] +" "+ getitemname(.@item_req[0]) + (.@req_amount[0] > 1 && .@item_req[0] != 999 ? "s":"") +"^000000, "+ (.@item_req[1] != 0 && .@req_amount[1] != 0 ? ("^FF0000"+ .@req_amount[1] +" "+ getitemname(.@item_req[1]) + (.@req_amount[1] > 1 && .@item_req[1] != 999 ? "s":"") + "^000000 ") : "") + "ÁÒãËé©Ñ¹ áÅĞà§Ô¹ÍÕ¡¨Ó¹Ç¹ ^FF0000" + (.@zeny_req >= 1000 ? (.@zeny_req /1000 +",000") : .@zeny_req) +",000 zeny^000000 ã¹¡ÒÃãªéºÃÔ¡ÒÃ.";
+	mes "ÍèÒ,áÅĞÍÂèÒÅ×Á¹ÓÊÔè§¹ÕéÁÒ´éÇÂ "+ getitemname(.@item_id) +"!";
+	next;
+	mes "[Seiyablem]";
+	if (getiteminfo(.@item_id,5) & EQP_HAND_R) // weapon
+	{
+		mes "[Seiyablem]";
+		mes "©Ñ¹¨Ğ¾ÂÒÂÒÁà¾ÔèÁ Slot ãËé ËÒ¡¤Ø³¨Óà»ç¹ áµè¤Ø³µéÍ§ÁÕ Item ªÔé¹¹Ñé¹ÁÒáÅĞà§Ô¹ÍÕ¡¨Ó¹Ç¹Ë¹Öè§.";
+		mes "ÍÂèÒ§äÃ¡çµÒÁ, ¤Ø³¤ÇÃ¨ĞÃÙéäÇéÇèÒËÒ¡¤Ø³äÁè¹ÓÊÔè§·Õè©Ñ¹µéÍ§¡ÒÃÁÒ ©Ñ¹¡ç¨ĞäÁè·Ó¡ÒÃÍÑ¾à¡Ã´ÍØ»¡Ã³ìãËé¤Ø³.";
+		mes "´Ñ§¹Ñé¹, ©Ñ¹¨Ö§ÍÂÒ¡¨Ğàµ×Í¹¤Ø³´éÇÂ¤ÇÒÁÂØ¸µÔ¸ÃÃÁ";
+		next;
+		mes "[Seiyablem]";
+		mes "ËÒ¡¡ÒÃà¾ÔèÁ Slot ã¹¤ÃÑé§¹ÕéÅéÁàËÅÇ, áÅéÇ ^FF0000ÍÒÇØ¸^000000, ^FF0000áÅĞ¡ÒÃì´·ÕãÊèÍÂÙè¢éÒ§ã¹¨Ğ¶Ù¡·ÓÅÒÂä»¾ÃéÍÁ¡Ñ¹^000000.";
+	}
+	else // armor
+	{
+		mes "[Seiyablem]";
+		mes "¶éÒ¤Ø³ÁÕÇÑÊ´Ø·Õè©Ñ¹µéÍ§¡ÒÃ, áÅĞà§Ô¹ã¹¤èÒáÃ§¢Í§©Ñ¹ áÅĞªØ´à¡ÃÒĞ, ¼Á¡ç¾ÃéÍÁ·Õè¨Ğà¾ÔèÁ Slot ãËé¡Ñº¤Ø³.";
+		mes "áµè¡èÍ¹·Õè, ©Ñ¹µéÍ§¢Íàµ×Í¹¤Ø³¡èÍ¹àÃ×èÍ§¢Í§¤ÇÒÁàÊÕèÂ§ã¹¡ÒÃà¾ÔèÁ Slot.";
+		next;
+		mes "[Seiyablem]";
+		mes "¶éÒËÒ¡¡ÒÃà¾ÔèÁ Slot ¤ÃÑé§¹ÕéÅéÁàËÅÇ, áÅéÇ ^FF0000ªØ´à¡ÃÒĞ^000000, ^FF0000·ÕèÁÑ¹ÍÑ¾à¡Ã´ÁÒ^000000 ^FF0000áÅĞ¡ÒÃì´·ÕèãÊèÍÂÙè ¨Ğ¶Ù¡·ÓÅÒÂä»¾ÃéÍÁ¡Ñ¹^000000.";
+	}
+	mes "¤Ø³ÂÑ§µéÍ§¡ÒÃ·Õè¨Ğà¾ÔèÁ Slot ËÃ×ÍäÁè?";
+	next;
+	switch(select("~ ©Ñ¹¾ÃéÍÁ·Õè¨Ğà¾ÔèÁ Slot áÅéÇ:~ Â¡àÅÔ¡Ê¹·¹Ò"))
+	{
+		case 1:
+			if ((Zeny >= .@zeny_req*1000) && countitem(.@item_req[0]) >= .@req_amount[0] && countitem(getarg(7,512)) >= .@req_amount[1] && countitem(.@item_id) > 0)// if there's no getarg(7) and getarg(8) provided, check itemcount against 0 (we still need a valid item ID though)
+			{
+				mes "[Seiyablem]";
+				mes "àÍÒà¶ÍĞ!àÃÒÁÒàÃÔèÁ¡Ñ¹´Õ¡ÇèÒ";
+				mes "¤Ø³ÀÒÇ¹ÒãËéÁÑ¹ÊÓàÃç¨à¶ÍĞ¹Ğ.";
+				next;
+				set .@a, rand(1,100);
+				if ((.@a > getarg(2)) && (.@a < getarg(3)))
+				{
+					specialeffect getarg(3) == 51 ? EF_LORD : EF_SANCTUARY; // only S Class items have Lord of Vermillion effect
+					mes "[Seiyablem]";
+					mes "àÂÕèÂÁ, ÁÑ¹ÊÓàÃç¨áÅĞ¼èÒ¹ä»´éÇÂ´Õ";
+					mes "ÂÔ¹´Õ´éÇÂ¡Ñº¤ÇÒÁÊÓàÃç¨¤ÃÑé§¹Õé ! ";
+					delitem .@item_id,1;
+					delitem .@item_req[0],.@req_amount[0];
+					if (.@item_req[1] != 0 && .@req_amount[1] != 0)
+						delitem .@item_req[1],.@req_amount[1];
+					Zeny = Zeny - .@zeny_req *1000;
+					getitem getarg(1),1;
+					next;
+					mes "[Seiyablem]";
+					mes "áÅéÇ¾º¡Ñ¹ãËÁè..ÍÕ¡¤ÃÑé§à¾×èÍ¹!";
+					close;
+				}
+				else
+				{
+					specialeffect EF_SUI_EXPLOSION;
+					mes "[Seiyablem]";
+					mes "âÍéÇ...¢Íâ·É·Õ ÁÑ¹äÁèÊÓàÃç¨.";
+					mes "ÍÂèÒ§äÃ¡çµÒÁ, ©Ñ¹¨Ğ·ÓµÑÇà»ç¹àËÁ×Í¹äÁèÃÙéäÁèàËç¹ÍĞäÃàÅÂÅĞ¡Ñ¹.";
+					mes "¹Õè¤×Íâª¤ªĞµÒ¢Í§¤Ø³, áÅĞà»ç¹ÊÔè§·Õè¾ÃĞ·èÒ¹¡ÓË¹´ÁÒáÅéÇ, à¢éÒã¨äËÁ?";
+					mes "¤ÃÑé§Ë¹éÒàÃÒÁÒ¾ÂÒÂÒÁ¡Ñ¹ãËÁè¹Ğ.";
+					delitem .@item_id,1;
+					delitem .@item_req[0],.@req_amount[0];
+					if (.@item_req[1] != 0 && .@req_amount[1] != 0)
+						delitem .@item_req[1],.@req_amount[1];
+					Zeny = Zeny - .@zeny_req *1000;
+					next;
+					mes "[Seiyablem]";
+					mes "©Ñ¹ËÇÑ§ÇèÒ ÃÍºË¹éÒ ¤Ø³¨Ğâª¤´Õ¹Ğ";
+					close;
+				}
+			}
+			else
+			{
+				mes "[Seiyablem]";
+				mes "©Ñ¹µéÍ§¡ÒÃÊÁÒ¸Ôã¹¡ÒÃà¾ÔèÁ Slot, áµè¤Ø³äÁè¤ÇÃ¾ÅÒ´ÊÔè§µèÒ§æ.";
+				mes "¤Ø³µéÍ§á¹èã¨ÇèÒ¤Ø³ÁÕ Item ·Õè¨ĞãËéà¾ÔÁ, ÁÕáÃèáÅĞÇÑÊ´Ø¤Ãº ÊØ´·éÒÂ¡ç¤èÒáÃ§¢Í§©Ñ¹¤Ãº";
+				close;
+			}
+		case 2:
+			mes "[Seiyablem]";
+			mes "ºÒ§·Õ¤Ø³ÍÒ¨¨ĞµéÍ§¡ÒÃàÇÅÒã¹¡ÒÃ¤Ô´ãªèäËÁÅĞ, Ë×Á?";
+			mes "àÍÒà¶ÍĞ..©Ñ¹à¢éÒã¨.";
+			mes "ÁÑ¹ÍÒ¨Ğ´ÙàËÁ×Í¹Ê¹Ø¡áµèÁÑ¹äÁè»ÅÍ´ÀÑÂãªèäËÁÅĞ";
+			close;
+	}
+}
+
+payon,28,119,5	duplicate(SocketEnchant)	Seiyablem#pay	84
+//lhz_in02,281,35,5	duplicate(SocketEnchant)	Seiyablem#lhz	84
+prt_in,33,70,5	duplicate(SocketEnchant)	Seiyablem#prt	84
+morocc_in,60,61,6	duplicate(SocketEnchant)	Seiyablem#moc	84
+
+-	script	Young Man#dummy::SocketMan	-1,{
+	mes "[Young Man]";
+	mes "à¨ÒĞÃÙã¹äÍà·çÁÊÇÁãÊè";
+	mes "ÍÒ¨·ÓãËé¤Ø³ÊÁºÑµÔäÍà·çÁãÊè´éÇÂ";
+	next;
+	mes "[Young Man]";
+	mes "OhÁÑ¹à»ç¹à©¾ÒĞÊÔè§·Õè¾ÔàÈÉà·èÒ¹Ñé¹";
+	mes "áµèºÒ§·Õ ¤Ø³ÊÒÁÒÃ¶à¨ÒĞÃÙä´é";
+	mes "2 Slots ã¹äÍà·çÁªÔé¹à´ÕÂÇ¡Ñ¹";
+	mes "á¹è¹Í¹ äÁèãªèÇèÒ¨Ğ·Óä´é·Ø¡ æ ªÔé¹ËÃÍ¡¹Ğ";
+	next;
+	mes "[Young Man]";
+	mes "©Ñ¹¤Ô´¨ĞàÃÕÂ¹ÃÙéÍÂèèÒ§¨ÃÔ§¨Ñ§";
+	mes "áÅĞ¡ÅÒÂà»ç¹ªèÒ§à¨ÒĞÃÙ";
+	close;
+}
+
+prt_in,31,57,1	duplicate(SocketMan)	Young Man#prt	97
+payon,24,119,5	duplicate(SocketMan)	Young Man#pay	97
+morocc_in,63,71,5	duplicate(SocketMan)	Young Man#moc	97
+//lhz_in02,269,33,5	duplicate(SocketMan)	Young Man#lhz	97

@@ -1,0 +1,2923 @@
+morocc_in,74,31,3	script	`option Tier 2#2	4_F_KR_TIGER,{
+disable_items;
+
+	//-------------------------------------------------------------------------------------//
+
+	set .@success, 40; 				// โอกาศสำเร็จ แบบธรรมดา (สูงสุดที่ 99)
+	set .@successrare, 80; 			// โอกาศสำเร็จ แบบพิเศษ (สูงสุดที่ 99)
+	set .@refinehigher1, 4; 		// อัตราการอัพเกรดที่ออพชั่นได้ (ใช้ค่าสูงกว่า4=5)
+	set .@refinehigher, 5; 			// ตัวเลขโชว์ระดับอัพเกรดที่ตีบวกได้
+	
+	//-------------------------------------------------------------------------------------//
+	set .@MAXHPHe, 1; 			// MaxHP Helm
+	set .@MAXSPHe, 2; 			// MaxSP Helm
+	set .@DEFHe, 20; 			// Def Helm
+	set .@MDEFHe, 21; 			// Mdef Helm
+	set .@SUBNOTHINGHe, 56; 	// ป้องกันเวทย์มนต์ทุกธาตุ% Helm
+	set .@SUBLONGHe, 167; 		// ลดดาเมจจากการโจมตีระยะไกล% Helm
+	
+	set .@MAXHPHeR, rand(50,300); 			// Ran MaxHP Helm
+	set .@MAXSPHeR, rand(20,100); 			// Ran MaxSP Helm
+	set .@DEFHeR, rand(1,5); 				// Ran Def Helm
+	set .@MDEFHeR, rand(1,5); 				// Ran Mdef Helm
+	set .@SUBNOTHINGHeR, rand(1,5); 		// Ran ป้องกันเวทย์มนต์ทุกธาตุ Helm
+	set .@SUBLONGHeR, rand(1,5); 			// Ran ลดดาเมจจากการโจมตีระยะไกล Helm
+	//-------------------------------------------------------------------------------------//
+	set .@MAXHPAr, 1; 			// MaxHP Armor
+	set .@MAXSPAr, 2; 			// MaxSP Armor
+	set .@DEFAr, 20; 			// Def Armor
+	set .@MDEFAr, 21; 			// Mdef Armor
+	set .@SUBNOTHINGAr, 56; 	// ป้องกันเวทย์มนต์ทุกธาตุ% Armor
+	set .@CASTTIMEAr, 170; 		// ลดระยะเวลาในการร่ายสกิล% Armor
+	
+	set .@BODYWATERAr, 77; 		// เปลื่ยนชุดเกราะเป็นธาตุ: น้ำ Armor
+	set .@BODYGROUNDAr, 78; 	// เปลื่ยนชุดเกราะเป็นธาตุ: ดิน Armor
+	set .@BODYFIREAr, 79; 		// เปลื่ยนชุดเกราะเป็นธาตุ: ไฟ Armor
+	set .@BODYWINGAr, 80; 		// เปลื่ยนชุดเกราะเป็นธาตุ: ลม Armor
+	set .@BODYPOISONAr, 81; 	// เปลื่ยนชุดเกราะเป็นธาตุ: พิษ Armor
+	set .@BODYSAINTAr, 82; 		// เปลื่ยนชุดเกราะเป็นธาตุ: ศักดิ์สิทธิ์ Armor
+	set .@BODYDARKNESSAr, 83; 	// เปลื่ยนชุดเกราะเป็นธาตุ: มืด Armor
+	set .@BODYTELEKINESISAr, 84; 	// เปลื่ยนชุดเกราะเป็นธาตุ: โกส Armor
+	set .@BODYUNDEADAr, 85; 	// เปลื่ยนชุดเกราะเป็นธาตุ: ผีดิบ Armor
+	
+	set .@MAXHPArR, rand(100,500); 			// Ran MaxHP Armor
+	set .@MAXSPArR, rand(50,150); 			// Ran MaxSP Armor
+	set .@DEFArR, rand(1,5); 			// Ran Def Armor
+	set .@MDEFArR, rand(1,5); 			// Ran Mdef Armor
+	set .@SUBNOTHINGArR, rand(1,5); 	// Ran ป้องกันเวทย์มนต์ทุกธาตุ Armor
+	set .@CASTTIMEArR, rand(1,5); 		// Ran ลดระยะเวลาในการร่ายสกิล Armor
+	//-------------------------------------------------------------------------------------//
+	set .@ATKGa, 13; 			// ATK% Garment
+	set .@MATKGa, 14; 			// MATK% Garment
+	set .@ASPDGa, 16; 			// เพิ่มความไวในการโจมตี% Garment
+	set .@LONGGa, 166; 			// LONG% Garment
+	set .@SUBSMALLGa, 160; 		// ป้องกันมอนเตอร์ ขนาดเล็ก% Garment
+	set .@SUBMIDIUMGa, 161; 	// ป้องกันมอนเตอร์ ขนาดกลาง% Garment
+	set .@SUBLARGEGa, 162; 		// ป้องกันมอนเตอร์ ขนาดใหญ่% Garment
+	
+	set .@ATKGaR, rand(1,5); 		// Ran ATK% Garment
+	set .@MATKGaR, rand(1,5); 		// Ran MATK% Garment
+	set .@ASPDGaR, rand(1,5); 		// Ran เพิ่มความไวในการโจมตี% Garment
+	set .@LONGGaR, rand(1,5); 		// Ran LONG% Garment
+	set .@SUBSMALLGaR, rand(1,3); 	// Ran ป้องกันมอนเตอร์ ขนาดเล็ก% Garment
+	set .@SUBMIDIUMGaR, rand(1,3); 	// Ran ป้องกันมอนเตอร์ ขนาดกลาง% Garment
+	set .@SUBLARGEGaR, rand(1,3); 	// Ran ป้องกันมอนเตอร์ ขนาดใหญ่% Garment
+	//-------------------------------------------------------------------------------------//
+	set .@MAXHPFo, 1; 			// MaxHP Footgear
+	set .@MAXSPFo, 2; 			// MaxSP Footgear
+	set .@HPREFo, 11; 			// ReHp% Footgear 
+	set .@SPREFo, 12; 			// ReSp% Footgear
+	set .@DEFFo, 20; 			// Def Footgear
+	set .@MDEFFo, 21; 			// Mdef Footgear
+	set .@FLEEFo, 22; 			// Flee Footgear
+	set .@SUBBOSSFo, 150; 			// ป้องกันมอนเตอร์ประเภท บอส% Footgear
+	
+	set .@MAXHPFoR, rand(50,200); 		// Ran MaxHP Footgear
+	set .@MAXSPFoR, rand(10,50); 		// Ran MaxSP Footgear
+	set .@HPREFoR, rand(1,10); 			// Ran ReHp% Footgear
+	set .@SPREFoR, rand(1,10); 			// Ran ReSp% Footgear
+	set .@DEFFoR, rand(1,5); 			// Ran Def Footgear
+	set .@MDEFFoR, rand(1,5); 			// Ran Mdef Footgear
+	set .@FLEEFoR, rand(1,30); 			// Ran Flee Footgear
+	set .@SUBBOSSFoR, rand(1,3); 		// Ran ป้องกันมอนเตอร์ประเภท บอส Footgear
+	//-------------------------------------------------------------------------------------//
+	set .@LONGWe, 166; 			// เพิ่มอัตราการโจมตีระยะไกล% WeaponRight
+	set .@MELEEWe, 219; 		// โจมตีกายภาพระยะใกล้% WeaponRight
+	set .@CRIDMGWe, 164; 		// เพิ่มพลังโจมตีคริติคอล% WeaponRight
+	set .@DAMAGESPWe, 176; 		// เมื่อสังหารม่อนเตอร์  จะได้รับ SP% WeaponRight
+	set .@ATKHUMANWe, 208; 		// โจมตีกายภาพ ผู้เล่น-มนุษย์% WeaponRight
+	set .@MATKHUMANWe, 210; 	// โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์% WeaponRight
+	set .@ATKSMALLWe, 157; 		// โจมตีกายภาพมอนเตอร์ ขนาดเล็ก% WeaponRight
+	set .@ATKMIDIUMWe, 158; 	// โจมตีกายภาพมอนเตอร์ ขนาดกลาง% WeaponRight
+	set .@ATKLARGEWe, 159; 		// โจมตีกายภาพมอนเตอร์ ขนาดใหญ่% WeaponRight
+	set .@MATKSMALLWe, 187; 	// โจมตีเวทย์มนต์มอนเตอร์ ขนาดเล็ก% WeaponRight
+	set .@MATKMIDIUMWe, 188; 	// โจมตีเวทย์มนต์มอนเตอร์ ขนาดกลาง% WeaponRight
+	set .@MATKLARGEWe, 189; 	// โจมตีเวทย์มนต์มอนเตอร์ ขนาดใหญ่% WeaponRight
+	set .@ATKWe, 13; 			// ATK% WeaponRight
+	set .@MATKWe, 14; 			// MATK% WeaponRight
+	set .@CASTTIMEWe, 170; 		// ลดเวลาการร่ายเวทย์ลง% WeaponRight
+	set .@SUBNOTHINGWe, 56; 	// ป้องกันเวทย์มนต์ทุกธาตุ% WeaponRight
+	set .@ATKkWe, 17; 			// ATK WeaponRight
+	set .@MATKkWe, 19; 			// MATK WeaponRight
+	set .@MAXHPWe, 1; 			// MaxHP WeaponRight
+	set .@MAXSPWe, 2; 			// MaxSP WeaponRight
+	set .@DEFWe, 20; 			// Def WeaponRight
+	set .@MDEFWe, 21; 			// Mdef WeaponRight
+	set .@PERFECTWe, 163; 		// โจมตีด้วยอาวุธแบบไม่สนขนาดของมอนเตอร์ WeaponRight
+	
+	set .@LONGWeR, rand(1,5); 			// Ran เพิ่มอัตราการโจมตีระยะไกล WeaponRight
+	set .@MELEEWeR, rand(1,5); 			// Ran โจมตีกายภาพระยะใกล้ WeaponRight
+	set .@CRIDMGWeR, rand(5,15); 		// Ran เพิ่มพลังโจมตีคริติคอล WeaponRight
+	set .@DAMAGESPWeR, rand(1,5); 		// Ran เมื่อสังหารม่อนเตอร์  จะได้รับ SP WeaponRight
+	set .@ATKHUMANWeR, rand(1,10); 		// Ran โจมตีกายภาพ ผู้เล่น-มนุษย์ WeaponRight
+	set .@MATKHUMANWeR, rand(1,10); 	// Ran โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์ WeaponRight
+	set .@ATKSMALLWeR, rand(1,10); 		// Ran โจมตีกายภาพมอนเตอร์ ขนาดเล็ก WeaponRight
+	set .@ATKMIDIUMWeR, rand(1,10); 	// Ran โจมตีกายภาพมอนเตอร์ ขนาดกลาง WeaponRight
+	set .@ATKLARGEWeR, rand(1,10); 		// Ran โจมตีกายภาพมอนเตอร์ ขนาดใหญ่ WeaponRight
+	set .@MATKSMALLWeR, rand(1,10); 	// Ran โจมตีเวทย์มนต์มอนเตอร์ ขนาดเล็ก WeaponRight
+	set .@MATKMIDIUMWeR, rand(1,10); 	// Ran โจมตีเวทย์มนต์มอนเตอร์ ขนาดกลาง WeaponRight
+	set .@MATKLARGEWeR, rand(1,10); 	// Ran โจมตีเวทย์มนต์มอนเตอร์ ขนาดใหญ่ WeaponRight
+	set .@ATKWeR, rand(1,10); 			// Ran ATK WeaponRight
+	set .@MATKWeR, rand(1,10); 			// Ran MATK WeaponRight
+	set .@CASTTIMEWeR, rand(1,10); 		// Ran ลดเวลาการร่ายเวทย์ลง WeaponRight
+	set .@SUBNOTHINGWeR, rand(1,5); 	// Ran ป้องกันเวทย์มนต์ทุกธาตุ WeaponRight
+	set .@ATKkWeR, rand(1,25); 			// Ran ATK WeaponRight
+	set .@MATKkWeR, rand(1,25); 		// Ran MATK WeaponRight
+	set .@MAXHPWeR, rand(1,300); 		// Ran MaxHP WeaponRight
+	set .@MAXSPWeR, rand(1,50); 		// Ran MaxSP WeaponRight
+	set .@DEFWeR, rand(1,10); 			// Ran Def WeaponRight
+	set .@MDEFWeR, rand(1,10); 			// Ran Mdef WeaponRight
+	//-------------------------------------------------------------------------------------//
+	
+	.@ref = getequiprefinerycnt(.@id);
+				if (checkweight(1201,1) == 0) {
+					mes "[เสริมพลัง]";
+					mes "ช่องเก็บของเต็ม";
+					close;
+				}
+				if (MaxWeight - Weight < 10000) {
+					mes "[เสริมพลัง]";
+					mes "น้ำหนักเกิน";
+					close;
+				}
+				
+					mes "[เสริมพลัง]";
+					mes "สวัสดีข้าสามารถเสริมพลัง";
+					mes "ไอเทมหลักให้เจ้าได้";
+					mes "______________________________";
+	next;
+	switch(select("^000099Normal Option ["+ .@success +"%]^000000","^000099Safe Option ["+ .@successrare +"%]^000000","^009900รายละเอียด^000000","ยกเลิก")) {
+	
+	case 1:
+					mes "[เสริมพลัง]";
+					mes "ข้าต้องการ";
+					mes "1.^339900Oridecon^000000 20ea.";
+					mes "2.^339900Elunium^000000 20ea.";
+					mes "3.^339900500,000^000000 Zeny.";
+					mes "______________________________";
+	switch(select("^000099Helm^000000","^000099Armor^000000","^000099Garment^000000","^000099Footgear^000000","^000099Waepon Right^000000","^000099Waepon Left^000000","ยกเลิก")) {
+	
+	//--------------------------------------------------------------------------------//		
+			case 1:	
+			
+	setarray .@indices[1],EQI_HEAD_TOP;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN1H;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+				
+			TRN1H:		
+					set .RanHelm, rand(1,100);
+		if ( .RanHelm <= .@success ){
+		
+					set .ranoption, rand(1,6);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPHe,.@MAXHPHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPHe,.@MAXSPHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFHe,.@DEFHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFHe,.@MDEFHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGHe,.@SUBNOTHINGHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGHeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBLONGHe,.@SUBLONGHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันการโจมตีระยะไกล^000000 ^ff0066"+ .@SUBLONGHeR +"^000000%";
+					close;
+					}
+					}
+		if ( .RanHelm <= 100 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//
+			case 2:	
+			
+	setarray .@indices[1],EQI_ARMOR;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN1R;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+				
+			TRNC1:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 1 ก่อน!!";
+					close;
+					
+			TRN1R:				
+			
+					set .RanArmor, rand(1,100);
+		if ( .RanArmor <= .@success ){
+					set .ranoption, rand(1,15);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPAr,.@MAXHPArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPAr,.@MAXSPArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFAr,.@DEFArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFAr,.@MDEFArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGAr,.@SUBNOTHINGArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGArR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CASTTIMEAr,.@CASTTIMEArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ลดระยะเวลาในการร่ายสกิล^000000 ^ff0066"+ .@CASTTIMEArR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYWATERAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 น้ำ^000000";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYGROUNDAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ดิน^000000";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYFIREAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ไฟ^000000";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYWINGAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ลม^000000";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYPOISONAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 พิษ^000000";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYSAINTAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ศักดิ์สิทธิ์^000000";
+					close;
+					}
+		if ( .ranoption <= 13 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYDARKNESSAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 มืด^000000";
+					close;
+					}
+		if ( .ranoption <= 14 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYTELEKINESISAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 โกส^000000";
+					close;
+					}
+		if ( .ranoption <= 15 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYUNDEADAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ผีดิบ^000000";
+					close;
+					}
+					}
+					
+		if ( .RanArmor <= 100 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//		
+			case 3:	
+			
+	setarray .@indices[1],EQI_GARMENT;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN1G;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+				
+			TRN1G:				
+					set .RanGarment, rand(1,100);
+		if ( .RanGarment <= .@success ){
+		
+					set .ranoption, rand(1,7);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKGa,.@ATKGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKGa,.@MATKGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ASPDGa,.@ASPDGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มความไวในการโจมตี^000000 ^ff0066"+ .@ASPDGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@LONGGa,.@LONGGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีระยะไกล^000000 ^ff0066"+ .@LONGGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBSMALLGa,.@SUBSMALLGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@SUBSMALLGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBMIDIUMGa,.@SUBMIDIUMGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@SUBMIDIUMGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBLARGEGa,.@SUBLARGEGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@SUBLARGEGaR +"^000000%";
+					close;
+					}
+					}
+		if ( .RanGarment <= 100 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+					
+	//--------------------------------------------------------------------------------//		
+			case 4:	
+			
+	setarray .@indices[1],EQI_SHOES;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN1F;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+				
+			TRN1F:				
+					set .RanFootgear, rand(1,100);
+		if ( .RanFootgear <= .@success ){
+		
+					set .ranoption, rand(1,8);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPFo,.@MAXHPFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPFo,.@MAXSPFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@HPREFo,.@HPREFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 HP Recovery^000000 ^ff0066"+ .@HPREFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SPREFo,.@SPREFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 SP Recovery^000000 ^ff0066"+ .@SPREFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFFo,.@DEFFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFFo,.@MDEFFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@FLEEFo,.@FLEEFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Flee^000000 ^ff0066"+ .@FLEEFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBBOSSFo,.@SUBBOSSFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ประเภท บอส^000000 ^ff0066"+ .@SUBBOSSFoR +"^000000%";
+					close;
+					}
+					}
+		if ( .RanFootgear <= 100 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//		
+			case 5:	
+			
+	setarray .@indices[1],EQI_HAND_R;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN1HR;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+				
+			TRN1HR:				
+					set .RanWeaponR, rand(1,100);
+		if ( .RanWeaponR <= .@success ){
+		
+					set .ranoption, rand(1,23);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@LONGWe,.@LONGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มอัตราการโจมตีระยะไกล^000000 ^ff0066"+ .@LONGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MELEEWe,.@MELEEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพระยะใกล้^000000 ^ff0066"+ .@MELEEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CRIDMGWe,.@CRIDMGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มพลังโจมตีคริติคอล^000000 ^ff0066"+ .@CRIDMGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DAMAGESPWe,.@DAMAGESPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เมื่อสังหารม่อนเตอร์  จะได้รับ SP^000000 ^ff0066"+ .@DAMAGESPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKHUMANWe,.@ATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@ATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKHUMANWe,.@MATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@MATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKSMALLWe,.@ATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@ATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKMIDIUMWe,.@ATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@ATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKLARGEWe,.@ATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@ATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKSMALLWe,.@MATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@MATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKMIDIUMWe,.@MATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@MATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKLARGEWe,.@MATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@MATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 13 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKWe,.@ATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 14 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKWe,.@MATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 15 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CASTTIMEWe,.@CASTTIMEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ลดเวลาการร่ายเวทย์ลง^000000 ^ff0066"+ .@CASTTIMEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 16 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGWe,.@SUBNOTHINGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 17 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKkWe,.@ATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 18 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKkWe,.@MATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 19 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPWe,.@MAXHPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 20 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPWe,.@MAXSPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 21 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFWe,.@DEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 22 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFWe,.@MDEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 23 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@PERFECTWe,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีด้วยอาวุธแบบไม่สนขนาดของมอนเตอร์^000000 ";
+					close;
+					}			
+					}
+		if ( .RanWeaponR <= 100 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+	//--------------------------------------------------------------------------------//		
+			case 6:	
+			
+	setarray .@indices[1],EQI_HAND_L;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN1HL;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC1;
+				
+			TRN1HL:				
+					set .RanWeaponL, rand(1,100);
+		if ( .RanWeaponL <= .@success ){
+		
+					set .ranoption, rand(1,23);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@LONGWe,.@LONGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มอัตราการโจมตีระยะไกล^000000 ^ff0066"+ .@LONGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MELEEWe,.@MELEEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพระยะใกล้^000000 ^ff0066"+ .@MELEEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CRIDMGWe,.@CRIDMGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มพลังโจมตีคริติคอล^000000 ^ff0066"+ .@CRIDMGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DAMAGESPWe,.@DAMAGESPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เมื่อสังหารม่อนเตอร์  จะได้รับ SP^000000 ^ff0066"+ .@DAMAGESPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKHUMANWe,.@ATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@ATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKHUMANWe,.@MATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@MATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKSMALLWe,.@ATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@ATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKMIDIUMWe,.@ATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@ATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKLARGEWe,.@ATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@ATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKSMALLWe,.@MATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@MATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKMIDIUMWe,.@MATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@MATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKLARGEWe,.@MATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@MATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 13 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKWe,.@ATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 14 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKWe,.@MATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 15 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CASTTIMEWe,.@CASTTIMEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ลดเวลาการร่ายเวทย์ลง^000000 ^ff0066"+ .@CASTTIMEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 16 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGWe,.@SUBNOTHINGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 17 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKkWe,.@ATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 18 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKkWe,.@MATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 19 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPWe,.@MAXHPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 20 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPWe,.@MAXSPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 21 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFWe,.@DEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 22 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFWe,.@MDEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 23 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@PERFECTWe,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีด้วยอาวุธแบบไม่สนขนาดของมอนเตอร์^000000 ";
+					close;
+					}			
+					}
+		if ( .RanWeaponL <= 100 ){
+					callfunc "EquipmentTR1";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+			case 7:	
+					mes "[เสริมพลัง]";
+					close;
+					}
+					
+	case 2:	
+					mes "[เสริมพลัง]";
+					mes "ข้าต้องการ";
+					mes "1.^339900Oridecon^000000 20ea.";
+					mes "2.^339900Elunium^000000 20ea.";
+					mes "3.^339900Enriched Oridecon^000000 1.";
+					mes "4.^339900Enriched Elunium^000000 1.";
+					mes "5.^339900800,000^000000 Zeny.";
+					mes "______________________________";
+					
+	switch(select("^000099Helm^000000","^000099Armor^000000","^000099Garment^000000","^000099Footgear^000000","^000099Waepon Right^000000","^000099Waepon Left^000000","ยกเลิก")) {
+	
+	//--------------------------------------------------------------------------------//		
+			case 1:	
+			
+	setarray .@indices[1],EQI_HEAD_TOP;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN2H2;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC2;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC2;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+				
+			TRN2H2:		
+					set .RanHelm, rand(1,100);
+		if ( .RanHelm <= .@successrare ){
+		
+					set .ranoption, rand(1,6);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPHe,.@MAXHPHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPHe,.@MAXSPHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFHe,.@DEFHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFHe,.@MDEFHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFHeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGHe,.@SUBNOTHINGHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGHeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBLONGHe,.@SUBLONGHeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันการโจมตีระยะไกล^000000 ^ff0066"+ .@SUBLONGHeR +"^000000%";
+					close;
+					}
+					}
+		if ( .RanHelm <= 100 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//
+			case 2:	
+			
+	setarray .@indices[1],EQI_ARMOR;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN2R2;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC2;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC2;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+				
+			TRNC2:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 1 ก่อน!!";
+					close;
+					
+			TRN2R2:				
+			
+					set .RanArmor, rand(1,100);
+		if ( .RanArmor <= .@successrare ){
+					set .ranoption, rand(1,15);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPAr,.@MAXHPArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPAr,.@MAXSPArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFAr,.@DEFArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFAr,.@MDEFArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFArR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGAr,.@SUBNOTHINGArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGArR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CASTTIMEAr,.@CASTTIMEArR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ลดระยะเวลาในการร่ายสกิล^000000 ^ff0066"+ .@CASTTIMEArR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYWATERAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 น้ำ^000000";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYGROUNDAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ดิน^000000";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYFIREAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ไฟ^000000";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYWINGAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ลม^000000";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYPOISONAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 พิษ^000000";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYSAINTAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ศักดิ์สิทธิ์^000000";
+					close;
+					}
+		if ( .ranoption <= 13 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYDARKNESSAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 มืด^000000";
+					close;
+					}
+		if ( .ranoption <= 14 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYTELEKINESISAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 โกส^000000";
+					close;
+					}
+		if ( .ranoption <= 15 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@BODYUNDEADAr,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เปลื่ยนชุดเกราะเป็นธาตุ:^000000^ff0066 ผีดิบ^000000";
+					close;
+					}
+					}
+					
+		if ( .RanArmor <= 100 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//		
+			case 3:	
+			
+	setarray .@indices[1],EQI_GARMENT;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN2G;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC2;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC2;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+				
+			TRN2G:				
+					set .RanGarment, rand(1,100);
+		if ( .RanGarment <= .@successrare ){
+		
+					set .ranoption, rand(1,7);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKGa,.@ATKGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKGa,.@MATKGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ASPDGa,.@ASPDGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มความไวในการโจมตี^000000 ^ff0066"+ .@ASPDGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@LONGGa,.@LONGGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีระยะไกล^000000 ^ff0066"+ .@LONGGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBSMALLGa,.@SUBSMALLGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@SUBSMALLGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBMIDIUMGa,.@SUBMIDIUMGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@SUBMIDIUMGaR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBLARGEGa,.@SUBLARGEGaR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@SUBLARGEGaR +"^000000%";
+					close;
+					}
+					}
+		if ( .RanGarment <= 100 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+					
+	//--------------------------------------------------------------------------------//		
+			case 4:	
+			
+	setarray .@indices[1],EQI_SHOES;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN2F;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC2;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC2;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+				
+			TRN2F:				
+					set .RanFootgear, rand(1,100);
+		if ( .RanFootgear <= .@successrare ){
+		
+					set .ranoption, rand(1,8);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPFo,.@MAXHPFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPFo,.@MAXSPFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@HPREFo,.@HPREFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 HP Recovery^000000 ^ff0066"+ .@HPREFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SPREFo,.@SPREFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 SP Recovery^000000 ^ff0066"+ .@SPREFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFFo,.@DEFFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFFo,.@MDEFFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@FLEEFo,.@FLEEFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Flee^000000 ^ff0066"+ .@FLEEFoR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBBOSSFo,.@SUBBOSSFoR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ประเภท บอส^000000 ^ff0066"+ .@SUBBOSSFoR +"^000000%";
+					close;
+					}
+					}
+		if ( .RanFootgear <= 100 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//		
+			case 5:	
+			
+	setarray .@indices[1],EQI_HAND_R;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN2HR;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC2;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC2;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+				
+			TRN2HR:				
+					set .RanWeaponR, rand(1,100);
+		if ( .RanWeaponR <= .@successrare ){
+		
+					set .ranoption, rand(1,23);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@LONGWe,.@LONGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มอัตราการโจมตีระยะไกล^000000 ^ff0066"+ .@LONGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MELEEWe,.@MELEEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพระยะใกล้^000000 ^ff0066"+ .@MELEEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CRIDMGWe,.@CRIDMGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มพลังโจมตีคริติคอล^000000 ^ff0066"+ .@CRIDMGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DAMAGESPWe,.@DAMAGESPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เมื่อสังหารม่อนเตอร์  จะได้รับ SP^000000 ^ff0066"+ .@DAMAGESPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKHUMANWe,.@ATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@ATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKHUMANWe,.@MATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@MATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKSMALLWe,.@ATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@ATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKMIDIUMWe,.@ATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@ATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKLARGEWe,.@ATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@ATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKSMALLWe,.@MATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@MATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKMIDIUMWe,.@MATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@MATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKLARGEWe,.@MATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@MATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 13 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKWe,.@ATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 14 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKWe,.@MATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 15 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CASTTIMEWe,.@CASTTIMEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ลดเวลาการร่ายเวทย์ลง^000000 ^ff0066"+ .@CASTTIMEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 16 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGWe,.@SUBNOTHINGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 17 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKkWe,.@ATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 18 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKkWe,.@MATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 19 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPWe,.@MAXHPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 20 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPWe,.@MAXSPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 21 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFWe,.@DEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 22 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFWe,.@MDEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 23 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@PERFECTWe,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีด้วยอาวุธแบบไม่สนขนาดของมอนเตอร์^000000 ";
+					close;
+					}			
+					}
+		if ( .RanWeaponR <= 100 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+	//--------------------------------------------------------------------------------//		
+			case 6:	
+			
+	setarray .@indices[1],EQI_HAND_L;
+		for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+				if (getequiprefinerycnt(.@id) <= .@refinehigher1 ) {
+	next;
+				mes "[เสริมพลัง]";
+				mes "** ไอเทมของคุณอัพเกรดต่ำกว่า +"+ .@refinehigher +" **";
+					close;
+				}	
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto TRN2HL;
+			else if ( @card1 && @card2 && @card3 && @card4) goto TRNC2;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto TRNC2;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto TRNC2;
+				
+			TRN2HL:				
+					set .RanWeaponL, rand(1,100);
+		if ( .RanWeaponL <= .@successrare ){
+		
+					set .ranoption, rand(1,23);
+		if ( .ranoption <= 1 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@LONGWe,.@LONGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มอัตราการโจมตีระยะไกล^000000 ^ff0066"+ .@LONGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MELEEWe,.@MELEEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพระยะใกล้^000000 ^ff0066"+ .@MELEEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CRIDMGWe,.@CRIDMGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มพลังโจมตีคริติคอล^000000 ^ff0066"+ .@CRIDMGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DAMAGESPWe,.@DAMAGESPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เมื่อสังหารม่อนเตอร์  จะได้รับ SP^000000 ^ff0066"+ .@DAMAGESPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKHUMANWe,.@ATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@ATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKHUMANWe,.@MATKHUMANWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์^000000 ^ff0066"+ .@MATKHUMANWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKSMALLWe,.@ATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@ATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKMIDIUMWe,.@ATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@ATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKLARGEWe,.@ATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@ATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKSMALLWe,.@MATKSMALLWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดเล็ก^000000 ^ff0066"+ .@MATKSMALLWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKMIDIUMWe,.@MATKMIDIUMWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดกลาง^000000 ^ff0066"+ .@MATKMIDIUMWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKLARGEWe,.@MATKLARGEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดใหญ่^000000 ^ff0066"+ .@MATKLARGEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 13 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKWe,.@ATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 14 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKWe,.@MATKWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 15 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@CASTTIMEWe,.@CASTTIMEWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ลดเวลาการร่ายเวทย์ลง^000000 ^ff0066"+ .@CASTTIMEWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 16 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@SUBNOTHINGWe,.@SUBNOTHINGWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBNOTHINGWeR +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 17 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@ATKkWe,.@ATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 18 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MATKkWe,.@MATKkWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKkWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 19 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXHPWe,.@MAXHPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxHP^000000 ^ff0066"+ .@MAXHPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 20 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MAXSPWe,.@MAXSPWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 MaxSP^000000 ^ff0066"+ .@MAXSPWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 21 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@DEFWe,.@DEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Def^000000 ^ff0066"+ .@DEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 22 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@MDEFWe,.@MDEFWeR,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 Mdef^000000 ^ff0066"+ .@MDEFWeR +"^000000";
+					close;
+					}
+		if ( .ranoption <= 23 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 154;
+					setrandomoption(.@id,1,.@PERFECTWe,0,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 โจมตีด้วยอาวุธแบบไม่สนขนาดของมอนเตอร์^000000 ";
+					close;
+					}			
+					}
+		if ( .RanWeaponL <= 100 ){
+					callfunc "EquipmentTRX";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+			case 7:	
+					mes "[เสริมพลัง]";
+					close;
+					}
+				
+	case 3:		
+					mes "[เสริมพลัง]";
+					mes "^000099เสริมพลังเทียร์ 2^000000";
+					mes "รายละเอียดออฟชั่นของแต่ละส่วน";
+					mes " ";
+					mes "______________________________";
+					mes "                                         ^006699  by^000000. มารี";
+	next;
+	switch(select("^cc9900Upper Head^000000","^cc9900Armor^000000","^cc9900Garment^000000","^cc9900Shoes^000000","^cc9900Weapon+Shield^000000","ยกเลิก")) {
+	
+			case 1:	
+					mes "[ ^FF0000Upper Head^000000 ]";
+					mes "^006699 เพิ่ม Def^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 เพิ่ม Mdef^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 ลดดาเมจจากการโจมตีระยะไกล^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่ม MaxHP^000000 ^ff006650^000000 - ^ff0066300^000000";
+					mes "^006699 เพิ่ม MaxSP^000000 ^ff006620^000000 - ^ff0066100^000000";
+					mes "                                             ";
+					close;
+					
+			case 2:	
+					mes "[ ^FF0000Armor^000000 ]";
+					mes "^006699 เพิ่ม Def^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 เพิ่ม Mdef^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 ลดดาเมจจากการโจมตีระยะไกล^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 ลดเวลาการร่ายเวทย์ลง^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่ม MaxHP^000000 ^ff0066100^000000 - ^ff0066500^000000";
+					mes "^006699 เพิ่ม MaxSP^000000 ^ff006650^000000 - ^ff0066150^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 น้ำ^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 ดิน^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 ไฟ^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 ลม^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 พิษ^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 ศักดิ์สิทธิ์^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 มืด^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 โกส^000000";
+					mes "^006699 เปลี่ยนชุดเกราะเป็นธาตุ :^000000^ff0066 ผีดิบ^000000";
+					mes "                                             ";
+					close;
+			case 3:	
+					mes "[ ^FF0000Garment^000000 ]";
+					mes "^006699 เพิ่ม Atk^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่ม Matk^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 โจมตีระยะไกล^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่ม Apsd^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 ป้องกันมอนเตอร์ ขนาดเล็ก^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 ป้องกันมอนเตอร์ ขนาดกลาง^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 ป้องกันมอนเตอร์ ขนาดใหญ่^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "                                             ";
+					close;
+			case 4:	
+					mes "[ ^FF0000Shoes^000000 ]";
+					mes "^006699 เพิ่ม Flee^000000 ^ff00661^000000 - ^ff006630^000000";
+					mes "^006699 เพิ่ม MaxHP^000000 ^ff006650^000000 - ^ff0066200^000000";
+					mes "^006699 เพิ่ม MaxSP^000000 ^ff006610^000000 - ^ff006650^000000";
+					mes "^006699 HP Recovery^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 SP Recovery^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 ป้องกันมอนเตอร์ประเภท บอส^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 เพิ่ม Def^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 เพิ่ม Mdef^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "                                             ";
+					close;
+			case 5:	
+					mes "[ ^FF0000Weapon+Shield^000000 ]";
+					mes "^006699 เพิ่มอัตราการโจมตีระยะไกล^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 โจมตีกายภาพระยะใกล้^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่มพลังโจมตีคริติคอล^000000 ^ff00665^000000% - ^ff006615^000000%";
+					mes "^006699 เมื่อสังหารม่อนเตอร์  จะได้รับ SP^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 โจมตีกายภาพ ผู้เล่น-มนุษย์^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 โจมตีกายภาพมอนเตอร์ ขนาดเล็ก^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 โจมตีกายภาพมอนเตอร์ ขนาดกลาง^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 โจมตีกายภาพมอนเตอร์ ขนาดใหญ่^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดเล็ก^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดกลาง^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 โจมตีเวทย์มนต์มอนเตอร์ ขนาดใหญ่^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 เพิ่ม ATK^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 เพิ่ม MATK^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 ลดเวลาการร่ายเวทย์ลง^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่ม ATK^000000 ^ff00661^000000 - ^ff006625^000000";
+					mes "^006699 เพิ่ม MATK^000000 ^ff00661^000000 - ^ff006625^000000";
+					mes "^006699 เพิ่ม MaxHP^000000 ^ff00661^000000 - ^ff0066300^000000";
+					mes "^006699 เพิ่ม MaxSP^000000 ^ff00661^000000 - ^ff006650^000000";
+					mes "^006699 เพิ่ม Def^000000 ^ff00661^000000 - ^ff006610^000000";
+					mes "^006699 เพิ่ม Mdef^000000 ^ff00661^000000 - ^ff006610^000000";
+					mes "^006699 โจมตีด้วยอาวุธแบบไม่สนขนาดของมอนเตอร์^000000 ";
+					mes "                                             ";
+					close;
+			case 6:	
+					mes "[เสริมพลัง]";
+					close;
+					}
+	case 4:	
+					mes "[เสริมพลัง]";
+					mes "ไว้เจ้าพร้อมแล้วมาหาข้าได้ทุกเมือ!!";
+					close;
+	}
+
+OnInit:
+	setarray .messages$," ","O","p","t","i","o","n"," ","E","q","u","i","p","m","e","n","t";
+	while( 1 )
+	{
+		set .Display$,"";
+		for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+		{
+			set .Display$,.Display$ + .messages$[.i];
+			delwaitingroom;
+			waitingroom .Display$,0;
+			sleep 100;
+		}
+	sleep 1000;
+	}
+	end;
+	
+}
+
+
+function	script	EquipmentTR1	{
+	next;
+	.Ori = 20; // จำนวนไอเทม
+	.Elu = 20; // จำนวนไอเทม
+	.Zeny = 500000; // จำนวนเงิน
+	
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 20 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 20 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 7620,.Orilnw;
+		delitem 7619,.Elulnw;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
+
+
+function	script	EquipmentTRX	{
+	next;
+	.Orilnw = 1; // จำนวนไอเทม
+	.Elulnw = 1; // จำนวนไอเทม
+	.Ori = 20; // จำนวนไอเทม
+	.Elu = 20; // จำนวนไอเทม
+	.Zeny = 800000; // จำนวนเงิน
+	
+				if (countitem(7620) < .Orilnw){ 
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Enriched Oridecon]^000000<INFO>7620</INFO></ITEM>^000000 1 ea";	// ไอเทมการันตี
+					close;
+				}
+				if (countitem(7619) < .Elulnw){ 
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Enriched Elunium]^000000<INFO>7619</INFO></ITEM>^000000 1 ea";	// ไอเทมการันตี
+					close;
+				}
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 20 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 20 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 7620,.Orilnw;
+		delitem 7619,.Elulnw;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
+
+

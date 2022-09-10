@@ -1,0 +1,13 @@
+###########################################################################
+#
+# Whispering Rain
+#
+###########################################################################
+
+Header:
+  Type: REFINE_RANDOMOPT_DB
+  Version: 1
+
+Footer:
+  Imports:
+  - Path: db/import/refine_randomopt.yml

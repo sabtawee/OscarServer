@@ -1,0 +1,88 @@
+-	script	Skoegul#1::OutsideFlags11	722,{
+
+	set .@GID, getcastledata("prtg_cas04",1);
+
+	if (.@GID == 0) {
+		mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+		mes " ";
+		mes "1. ตามคำสั่งของ The Divine แห่งราชอาณาจักร Rune-Midgarts";
+		mes " เราขอประกาศว่า";
+		mes " ปราสาทหลังนี้ ยังไม่มีผู้ใดครอบครอง";
+		mes " ";
+		mes "2. ผู้ใดที่สามารถ";
+		mes " เอาชนะสงสรามและสามารถ";
+		mes " ทำลาย Emperium ลงได้";
+		mes " จะเป็นผู้ที่ครอบครัว";
+		mes " ปราสาทหลังนี้";
+		close;
+	}
+	mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+	mes " ";
+	mes "1. ตามคำสั่งของ The Divine แห่งราชอาณาจักร Rune-Midgarts";
+	mes " เราขออนุมัติว่าสถานที่แห่งนี้";
+	mes " เป็นพื้นที่ส่วนตัวของ ^ff0000"+getguildname(.@GID)+"^000000 Guild.";
+	mes " ";
+	mes "2. Guild Master แห่ง ^ff0000"+getguildname(.@GID)+"^000000 Guild ";
+	mes " คือ ^ff0000"+getguildmaster(.@GID)+"^000000";
+	mes " หากมีใครก็ตามที่ต้องการพิสูจน์ความแข็งแกร่ง";
+	mes " โปรดหยิบดาบที่อยู่ในมือขึ้นมาต่อสู้ด้วยศักศรีดิ์และเกียรติยศ";
+	close;
+
+OnRecvCastlePt04:
+	flagemblem getcastledata("prtg_cas04",1);
+	end;
+}
+
+morocc,136,59,4	duplicate(OutsideFlags11)	Skoegul#01	722
+
+-	script	Fadhgridh#1::OutsideFlags12	722,{
+
+	set .@GID, getcastledata("prtg_cas03",1);
+
+	if (.@GID == 0) {
+		mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+		mes " ";
+		mes "1. ตามคำสั่งของ The Divine แห่งราชอาณาจักร Rune-Midgarts";
+		mes " เราขอประกาศว่า";
+		mes " ปราสาทหลังนี้ ยังไม่มีผู้ใดครอบครอง";
+		mes " ";
+		mes "2. ผู้ใดที่สามารถ";
+		mes " เอาชนะสงสรามและสามารถ";
+		mes " ทำลาย Emperium ลงได้";
+		mes " จะเป็นผู้ที่ครอบครัว";
+		mes " ปราสาทหลังนี้";
+		close;
+	}
+	if (getcharid(2) == .@GID) {
+		mes "[ Echoing Voice ]";
+		mes " ท่านผู้กล้า...";
+		mes " ท่านต้องการกลับไปยังสถานที่อันทรงเกียรติของท่านหรือไม่?";
+		next;
+		if(select(" กลับไปที่ปราสาทกิลด์: ออก") == 1) {
+			close2;
+			if (getcharid(2) == getcastledata("prtg_cas03",1)) {
+				warp "prtg_cas03",62,55;
+				end;
+			}
+			end;
+		}
+		close;
+	}
+	mes "[ Edict of the Divine Rune-Midgarts Kingdom ]";
+	mes " ";
+	mes "1. ตามคำสั่งของ The Divine แห่งราชอาณาจักร Rune-Midgarts";
+	mes " เราขออนุมัติว่าสถานที่แห่งนี้";
+	mes " เป็นพื้นที่ส่วนตัวของ ^ff0000"+getguildname(.@GID)+"^000000 Guild.";
+	mes " ";
+	mes "2. Guild Master แห่ง ^ff0000"+getguildname(.@GID)+"^000000 Guild ";
+	mes " คือ ^ff0000"+getguildmaster(.@GID)+"^000000";
+	mes " หากมีใครก็ตามที่ต้องการพิสูจน์ความแข็งแกร่ง";
+	mes " โปรดหยิบดาบที่อยู่ในมือขึ้นมาต่อสู้ด้วยศักศรีดิ์และเกียรติยศ";
+	close;
+
+OnRecvCastlePt03:
+	flagemblem getcastledata("prtg_cas03",1);
+	end;
+}
+
+morocc,139,59,4	duplicate(OutsideFlags12)	Fadhgridh#01	722

@@ -1,0 +1,274 @@
+////////////////////////////////////////////////////////////////////////////////////////
+////-- Whispering Rain
+
+function	script	F_EXPBOOK	{
+	doevent "ULTIMATEBOOK_CONTROL::OnMenu";
+	end;
+}
+
+-	script	ULTIMATEBOOK_CONTROL	-1,{
+
+OnMenu:
+	mes	.npcname$;
+	mes "EXP ตัวละคร: ^ff0000" + (100-baseexp_book_split) + "^000000% |JOB ตัวละคร: ^ff0000" + (100-jobexp_book_split) + "^000000%";
+	mes "EXP หนังสือ: ^ff0000" + baseexp_book_split + "^000000% |JOB หนังสือ: ^ff0000" + jobexp_book_split + "^000000%";
+	mes "EXP เก็บ : ^030ffc" + baseexp_book + "^000000/^bf50001KM^000000";
+	mes "JOB เก็บ : ^030ffc" + jobexp_book + "^000000/^bf50001KM^000000";
+	mes "RANK EXP : ^030ffc" + rank_exp + "^000000";
+	mes "DROP ถาวร : ^ff0000" + exp_book_drop + "^000000%";
+
+	menu "^FF0000•^000000 [ ^1100ffปรับแต่งการเก็บ EXP^000000 ]",-,"^FF0000•^000000 [ ^1100ffปรับแต่งการเก็บ JOB^000000 ]",-,"^FF0000•^000000 [ ^1100ffแลก Rank^000000 ]",-,"^FF0000•^000000 [ ^1100ffเลือกสายโบนัส Rank^000000 ]",-,"^FF0000•^000000 [ ^1100ffแลก bonus ดรอปถาวร^000000 ]",-,"^FF0000•^000000 [ ^1100ffร้าน EXP^000000 ]",-,"^FF0000•^000000 [ ปิด ]",-;
+	set .@menu_selected,@menu;
+
+	next;
+
+	if(.@menu_selected == 1){
+		mes	.npcname$;
+		mes "------------------------";
+		mes "โปรดระบุ % 0 - 100";
+		mes "เพื่อทำการแบ่งเก็บเข้าสมุด";
+		input .@input_numb,0,100;
+		next;
+		mes	.npcname$;
+		mes "EXP ตัวละคร : ^ff0000" + (100-baseexp_book_split) + "^000000%";
+		mes "EXP หนังสือ : ^ff0000" + baseexp_book_split + "^000000%";
+		mes "------------------------";
+		mes "คุณต้องการแบ่ง EXP ^ff0000" + .@input_numb + "^000000%";
+		mes "เพื่อเก็บเข้าสมุดใช่หรือไม่?";
+		menu "^FF0000•^000000 ตกลง",-,"^FF0000•^000000 ยกเลิก",-;
+		set .@confirm,@menu;
+		next;
+		if(.@confirm == 2){end;}
+		if(.@confirm == 1){
+			baseexp_book_split = .@input_numb;
+			mes	.npcname$;
+			mes "EXP ตัวละคร : ^ff0000" + (100-baseexp_book_split) + "^000000%";
+			mes "EXP หนังสือ : ^ff0000" + baseexp_book_split + "^000000%";
+			mes "------------------------";
+			mes "ทำการปรับ % EXP เสร็จสิ้น";
+			end;
+		}
+		end;
+	}
+	if(.@menu_selected == 2){
+		mes	.npcname$;
+		mes "------------------------";
+		mes "โปรดระบุ % 0 - 100";
+		mes "เพื่อทำการแบ่งเก็บเข้าสมุด";
+		input .@input_numb,0,100;
+		next;
+		mes	.npcname$;
+		mes "JOB ตัวละคร : ^ff0000" + (100-jobexp_book_split) + "^000000%";
+		mes "JOB หนังสือ : ^ff0000" + jobexp_book_split + "^000000%";
+		mes "------------------------";
+		mes "คุณต้องการแบ่ง JOB ^ff0000" + .@input_numb + "^000000%";
+		mes "เพื่อเก็บเข้าสมุดใช่หรือไม่?";
+		menu "^FF0000•^000000 ตกลง",-,"^FF0000•^000000 ยกเลิก",-;
+		set .@confirm,@menu;
+		next;
+		if(.@confirm == 2){end;}
+		if(.@confirm == 1){
+			jobexp_book_split = .@input_numb;
+			mes	.npcname$;
+			mes "JOB ตัวละคร : ^ff0000" + (100-jobexp_book_split) + "^000000%";
+			mes "JOB หนังสือ : ^ff0000" + jobexp_book_split + "^000000%";
+			mes "------------------------";
+			mes "ทำการปรับ % JOB เสร็จสิ้น";
+			end;
+		}
+		end;
+	}
+	if(.@menu_selected == 3){
+		mes	.npcname$;
+		mes "อัตราแลกเปลี่ยน -----------------";
+		mes "^0004ffEXP^000000: 1 EXP | ^00800fRANK^000000: 1 EXP";
+		mes "^ff0000JOB^000000: 1 JOB | ^00800fRANK^000000: 2 EXP";
+		mes "RANK EXP : ^030ffc" + rank_exp + "^000000";
+		menu "^FF0000•^000000 [ ^1100ffแลกด้วย EXP^000000 ]",-,"^FF0000•^000000 [ ^1100ffแลกด้วย JOB^000000 ]",-,"^FF0000•^000000 [ ปิด ]",-;
+		set .@rankexp_sel,@menu;
+		if(.@rankexp_sel == 3){end;}
+		if(.@rankexp_sel == 1){
+			mes "แลกด้วย : EXP";
+			.@exp_type = 1;
+		}
+		if(.@rankexp_sel == 2){
+			mes "แลกด้วย : JOB";
+			.@exp_type = 2;
+		}
+		
+		menu "^FF0000•^000000 1k",-,"^FF0000•^000000 10k",-,"^FF0000•^000000 100k",-,"^FF0000•^000000 1m",-,"^FF0000•^000000 10m",-,"^FF0000•^000000 100m",-,"^FF0000•^000000 1km",-,"^FF0000•^000000 ระบุเอง",-,"^FF0000•^000000 ปิด",-;
+		set .@trade_exp,@menu;
+		if(.@trade_exp == 9){end;}
+		switch(.@trade_exp){
+			case 1:
+				.@pay_exp = 1000;
+				break;
+			case 2:
+				.@pay_exp = 10000;
+				break;
+			case 3:
+				.@pay_exp = 100000;
+				break;
+			case 4:
+				.@pay_exp = 1000000;
+				break;
+			case 5:
+				.@pay_exp = 10000000;
+				break;
+			case 6:
+				.@pay_exp = 100000000;
+				break;
+			case 7:
+				.@pay_exp = 1000000000;
+				break;
+		}
+		if(.@trade_exp == 8){
+			input .@input_exp,0,1000000000;
+			.@pay_exp = .@input_exp;
+		}
+		if(.@exp_type == 1){
+			if(baseexp_book < .@pay_exp){
+				mes "คุณมี EXP ไม่เพียงพอ";
+				end;
+			}
+			rank_exp += .@pay_exp;
+		}
+		if(.@exp_type == 2){
+			if(jobexp_book < .@pay_exp){
+				mes "คุณมี JOB ไม่เพียงพอ";
+				end;
+			}
+			rank_exp += (.@pay_exp*2);
+		}
+		addtimer 100,"ULTIMATEBOOK_CONTROL::OnUpdate";
+		end;
+	}
+	if(.@menu_selected == 4){
+		mes	.npcname$;	
+		mes "โปรดเลือกสาย Rank";
+		mes "1: เน้นดาเมจ";
+		mes "2: เน้นสเตตัส";
+		mes "3: เน้นป้องการ";
+		mes "ทุกสายมี 7 เลเวล";
+		menu " ^FF0000•^000000 Damage",-," ^FF0000•^000000 Status",-," ^FF0000•^000000 Defence",-;
+		set .@bonus_sel,@menu;
+		rank_type = .@bonus_sel;
+		mes "เสร็จสิ้น";
+		close2;
+		addtimer 100,"ULTIMATEBOOK_CONTROL::OnUpdate";
+		end;
+	}
+	if(.@menu_selected == 5){
+		mes	.npcname$;
+		mes "RANK EXP : ^030ffc" + rank_exp + "^000000";
+		mes "DROP ถาวร : ^ff0000" + exp_book_drop + "^000000%";
+		mes "------------------------";
+		menu "^FF0000•^000000 Drop ถาวร +1% ^ff0000RANK EXP 100M^000000 [^030ffcMax "+$@max_book_drop+"%^000000]",-,"^FF0000•^000000 ยกเลิก",-;
+		set .@sel,@menu;
+		if(.@sel == 1){
+			if(rank_exp < $@drop_cost){
+				mes	.npcname$;
+				mes "RANK EXP ไม่เพียงพอในการแลก";
+				end;				
+			}			
+			if(exp_book_drop >= $@max_book_drop){
+				mes	.npcname$;
+				mes "ไม่สามารถแลกได้มากกว่าแล้ว";
+				end;
+			}
+			next;
+			exp_book_drop++;
+			rank_exp -= $@drop_cost;
+			sc_end SC_EXPBOOK_DROP;
+			sc_start SC_EXPBOOK_DROP,INFINITE_TICK,exp_book_drop;
+			mes	.npcname$;
+			mes "RANK EXP : ^030ffc" + rank_exp + "^000000";
+			mes "------------------------";
+			mes "แลกบัฟเสร็จสิ้น";
+			close2;
+		}
+		addtimer 100,"ULTIMATEBOOK_CONTROL::OnUpdate";
+		end;
+	}
+	if(.@menu_selected == 6){
+		close2;
+		callshop "exp_exchange",1;
+		announce "ท่านเข้าสู่ร้านค้าพิเศษ จะใช้งาน BASEEXP จาก EXP book ในการซื้อของ",bc_blue|bc_self;
+		end;
+	}
+	if(.@menu_selected == 7){end;}
+	end;
+
+OnInit:
+	.npcname$ = "[^FF0000•^000000 ^2f00ffEXP Book^000000 ^FF0000•^000000]";
+	
+	// max EXP
+	$@exp_limit = 1000000000; // 1KM
+	
+	// ค่าแลกดรอปถาวร
+	$@drop_cost = 100000000; // 100M
+	
+	// Max drop
+	$@max_book_drop = 10; // 10%
+	end;
+
+OnPCLoginEvent:
+	if(exp_book_drop){
+		sc_end SC_EXPBOOK_DROP;
+		sc_start SC_EXPBOOK_DROP,INFINITE_TICK,exp_book_drop;
+	}
+	end;
+
+OnUpdate:
+
+	//EXP					 1k    10k   100k   1m       10m     100m      1km
+	setarray $@EXP_ARRAY[0],1000,10000,100000,1000000,10000000,100000000,1000000000;
+	
+	if(rank_type == 1)
+		.@extra = 0;
+	if(rank_type == 2)
+		.@extra = 10;
+	if(rank_type == 3)
+		.@extra = 20;
+		
+	if(rank_exp >= $@EXP_ARRAY[0] && rank_exp < $@EXP_ARRAY[1]){
+		ranktitleupdate(1100+1+.@extra);
+	}else if(rank_exp >= $@EXP_ARRAY[1] && rank_exp < $@EXP_ARRAY[2]){
+		ranktitleupdate(1100+2+.@extra);
+	}else if(rank_exp >= $@EXP_ARRAY[2] && rank_exp < $@EXP_ARRAY[3]){
+		ranktitleupdate(1100+3+.@extra);
+	}else if(rank_exp >= $@EXP_ARRAY[3] && rank_exp < $@EXP_ARRAY[4]){
+		ranktitleupdate(1100+4+.@extra);
+	}else if(rank_exp >= $@EXP_ARRAY[4] && rank_exp < $@EXP_ARRAY[5]){
+		ranktitleupdate(1100+5+.@extra);
+	}else if(rank_exp >= $@EXP_ARRAY[5] && rank_exp < $@EXP_ARRAY[6]){
+		ranktitleupdate(1100+6+.@extra);
+	}else if(rank_exp >= $@EXP_ARRAY[6]){
+		ranktitleupdate(1100+7+.@extra);
+	}
+
+	dispbottom "==================";
+	dispbottom "==== status updated ====";
+	dispbottom "==================";
+	end;
+	
+OnBuyItem:
+	end;
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-	pointshop	exp_exchange	-1,baseexp_book,33007:1000,33008:10000,33009:100000,33010:1000000
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+-	script	::WHISPER_RankSys	-1,{
+	
+Oninit:
+	redmes ">> Whispering Rain : Ultimate EXP Book & Rank [YML version]";
+	$@ACTIVE_EXPBOOK = 1;
+	end;	
+	
+}

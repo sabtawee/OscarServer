@@ -1,0 +1,171 @@
+-	script	TESTSCRIPT	-1,{
+	
+OnTest:
+	sc_start SC_VIPSTATUS,1000000,10;
+	end;
+	
+OnTest2:
+	callfunc "F_collection";
+	end;
+	
+OnTest3:
+	end;
+	
+OnTest4:
+	dispbottom "asdsadsad";
+	pc_force_recalc();
+	end;
+	
+OnTest5:
+
+	getitem 601,1;
+	getitem 602,1;
+	getitem 603,1;
+	getitem 604,1;
+	getitem 605,1;
+	getitem 606,1;
+	getitem 607,1;
+	getitem 608,1;
+	getitem 609,1;
+	getitem 610,1;
+	getitem 611,1;
+	getitem 612,1;
+	getitem 613,1;
+	getitem 614,1;
+	getitem 615,1;
+	getitem 616,1;
+	getitem 617,1;
+	getitem 618,1;
+	getitem 619,1;
+	getitem 620,1;
+	getitem 621,1;
+	getitem 622,1;
+	getitem 623,1;
+	getitem 624,1;
+	getitem 625,1;
+	getitem 626,1;
+	getitem 627,1;
+	getitem 628,1;
+	getitem 629,1;
+	getitem 630,1;
+	getitem 631,1;
+	getitem 632,1;
+	getitem 633,1;
+	getitem 634,1;
+	getitem 635,1;
+	getitem 636,1;
+	getitem 637,1;
+	getitem 638,1;
+	getitem 639,1;
+	getitem 640,1;
+	getitem 641,1;
+	getitem 642,1;
+	getitem 643,1;
+	getitem 644,1;
+	getitem 645,1;
+	getitem 646,1;
+	getitem 647,1;
+	getitem 648,1;
+	getitem 649,1;
+	getitem 650,1;
+	getitem 651,1;
+	getitem 652,1;
+	getitem 653,1;
+	getitem 654,1;
+	getitem 655,1;
+	getitem 656,1;
+	getitem 657,1;
+	getitem 658,1;
+	getitem 659,1;
+	getitem 660,1;
+	getitem 661,1;
+	getitem 662,1;
+	getitem 663,1;
+	getitem 664,1;
+	getitem 665,1;
+	getitem 666,1;
+	getitem 667,1;
+	getitem 668,1;
+	getitem 669,1;
+	getitem 670,1;
+	getitem 671,1;
+	getitem 672,1;
+	getitem 673,1;
+	getitem 674,1;
+	getitem 675,1;
+	getitem 676,1;
+	getitem 677,1;
+	getitem 678,1;
+	getitem 679,1;
+	getitem 680,1;
+	getitem 681,1;
+	getitem 682,1;
+	getitem 683,1;
+	getitem 684,1;
+	getitem 685,1;
+	getitem 686,1;
+	getitem 687,1;
+	getitem 688,1;
+	getitem 689,1;
+	getitem 690,1;
+	getitem 691,1;
+	getitem 692,1;
+	getitem 693,1;
+	getitem 694,1;
+	getitem 695,1;
+	getitem 696,1;
+	getitem 697,1;
+	getitem 698,1;
+	getitem 699,1;
+	getitem 700,1;
+	getitem 701,1;
+	getitem 702,1;
+	getitem 703,1;
+	getitem 704,1;
+	getitem 705,1;
+	getitem 706,1;
+	getitem 707,1;
+	getitem 708,1;
+	getitem 709,1;
+	getitem 710,1;
+	getitem 711,1;
+	getitem 712,1;
+	getitem 713,1;
+	getitem 714,1;
+	getitem 715,1;
+	getitem 716,1;
+	getitem 717,1;
+	getitem 718,1;
+	getitem 719,1;
+	getitem 720,1;
+	getitem 721,1;
+	getitem 722,1;
+	getitem 723,1;
+	getitem 724,1;
+	getitem 725,1;
+	getitem 726,1;
+	getitem 727,1;
+	getitem 728,1;
+	getitem 729,1;
+	getitem 730,1;
+	getitem 731,1;
+	getitem 732,1;
+	getitem 733,1;
+	getitem 734,1;
+	getitem 735,1;
+	getitem 736,1;
+	getitem 737,1;
+	getitem 738,1;
+
+	end;	
+	
+Oninit:
+	bindatcmd "@aaa",""+strnpcinfo(0)+"::OnTest",0;
+	bindatcmd "@bbb",""+strnpcinfo(0)+"::OnTest2",0;
+	bindatcmd "@ccc",""+strnpcinfo(0)+"::OnTest3",0;
+	bindatcmd "@ddd",""+strnpcinfo(0)+"::OnTest4",0;
+	bindatcmd "@zzz",""+strnpcinfo(0)+"::OnTest5",0;
+	end;
+	
+}
+

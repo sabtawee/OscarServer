@@ -1,0 +1,16 @@
+-	script	CELL_PVP_CONTROL	-1,{
+	end;
+	
+OnInit:
+	setcell "morocc",149,103,170,86,CELL_PVP,1;
+	end;
+}
+
+// rebuff Cell pvp
+-	script	deathmatch_core	-1,{
+	specialeffect2 EF_BLESSING;
+	sc_start SC_BLESSING,300000,10;
+	specialeffect2 EF_INCAGILITY;
+	sc_start SC_INCREASEAGI,300000,10;
+	end;
+}

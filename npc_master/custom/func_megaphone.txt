@@ -1,0 +1,31 @@
+function	script	megaphone	{
+	switch(select("^FF0000สีแดง^000000", "^FFFF00สีเหลือง^000000","^00FF00สีเขียว^000000", "^FF8040สีส้ม^000000","^0000FFสีน้ำเงิน^000000", "^804040สีน้ำตาล^000000", "^C0C0C0สีเทา^000000", "สีดำ", "^ffffffสีขาว^000000")){
+      case 1:input @megaphone$;	//แดง
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0xFF0000;
+		break;
+      case 2:input @megaphone$;	//เหลือง
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0xFFFF00;
+		break;
+      case 3:input @megaphone$;	//เขียว
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0x00FF00;
+		break;
+      case 4:input @megaphone$;	//ส้ม
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0xFF8040;
+		break;
+      case 5:input @megaphone$;	//น้ำเงิน
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0x0000FF;
+		break;
+      case 6:input @megaphone$;	//น้ำตาล
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0x804040;
+		break;
+      case 7:input @megaphone$;	//เทา
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0xC0C0C0;
+		break;
+      case 8:input @megaphone$;	//ดำ
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0x000000;
+		break;
+      case 9:input @megaphone$;	//ขาว
+		announce "[ "+strcharinfo(0) +" ] : " + @megaphone$,bc_all,0xFFFFFF;
+		break;
+	}
+}

@@ -1,0 +1,789 @@
+//===== rAthena Script =======================================
+//= Illusion of Vampire
+//===== By: ================================================== 
+//= mr.TAURUS
+//===== Current Version: =====================================
+//= 1.5
+//===== Compatible With: ===================================== 
+//= rAthena Project
+//============================================================
+
+
+//============================================================
+// mapflag
+//============================================================
+gef_d01_i	mapflag	nobranch
+gef_d01_i	mapflag	nomemo
+
+//============================================================
+// Warp
+//============================================================
+gef_dun01,132,223,5	script	Grimm#illuvamp	110,{
+	mes .NPCname$;
+	mes "มีอะไรให้ข้าช่วยไหม?";
+	next;
+	switch(select(
+		""+.sb$+" เข้าสู้ดันเจี้ยน",
+		""+.sb$+" ไม่มีอะไร"
+	)) {
+		case 1:
+			mes .NPCname$;
+			mes "ขอให้โชคดี.";
+			close2;
+			warp "gef_d01_i",115,236;
+			end;
+			
+		case 2:
+			mes .NPCname$;
+			mes "แล้วพบกันใหม่.";
+			close;
+	}
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = "~";
+		end;
+}
+
+gef_d01_i,112,228,5	script	Marina#illuvamp	746,{
+	mes .NPCname$;
+	mes "เจ้าต้องการออกจากที่นี่หรือไม่?";
+	next;
+	if(select(""+.sb$+" ใช่.:"+.sb$+" ไม่.") == 2){
+		mes .NPCname$;
+		mes "มาหาข้าอีกครั้งหากเจ้าต้องการออกไป.";
+		close;
+	}
+	warp "gef_dun01",133,219;
+	end;
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = "~";
+		end;
+}
+
+//============================================================
+// Illusion Gears Trader.
+//============================================================
+gef_dun01,139,228,4	script	Great Merchant#illuvamp	900,{
+	mes .NPCname$;
+	mes "มีอะไรให้ข้าช่วยไหม?";
+	next;
+	switch(select(
+		""+.sb$+" อัพเกรด อาวุธ.",
+		""+.sb$+" อัพเกรด ชุดเกราะ.",
+		""+.sb$+" กล่องอัพเกรด."
+	)){
+		case 1:
+			mes .NPCname$;
+			mes "ต่อไปนี้เป็นรายการอุปกรณ์ที่ข้าสามารถจัดการได้.";
+			close2;
+			callshop "WEAPON_UP_VAMP",1;
+			end;
+		case 2:
+			mes .NPCname$;
+			mes "ต่อไปนี้เป็นรายการอุปกรณ์ที่ข้าสามารถจัดการได้.";
+			close2;
+			callshop "ARMOR_UP_VAMP",1;
+			end;
+		case 3:
+			mes .NPCname$;
+			mes "โปรดรอสักครู่.";
+			close2;
+			callshop "REFINE_Vampire",1;
+			end;
+	}
+	end;
+	
+OnInit:
+	.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+	.sb$ = "~";
+	.msg$ = "Illusion of Vampire";
+	setunittitle getnpcid(0),.msg$;
+	setunitdata getnpcid(0),UNPC_GROUP_ID,1014;
+	end;
+}
+//skycity,69,90,3	duplicate(Great Merchant#illuvamp)	Great Merchant#illuvamp2	900
+
+//============================================================
+// Mob Spawn
+//============================================================
+gef_d01_i,0,0	monster	White Plant	1082,12
+gef_d01_i,0,0	monster	Blue Plant	1079,2
+gef_d01_i,0,0	monster	Black Mushroom	3755,15
+
+gef_d01_i,0,0	monster	Matt Drainliar	3750,25,5000,0,"illusion_mob#vamp::OnKill"
+gef_d01_i,0,0	monster	Living Dead	3751,10,5000,0,"illusion_mob#vamp::OnKill"
+gef_d01_i,0,0	monster	Starving Living Dead	3752,20,5000,0,"illusion_mob#vamp::OnKill"
+gef_d01_i,0,0	monster	Living Dead	3753,30,5000,0,"illusion_mob#vamp::OnKill"
+gef_d01_i,0,0	monster	Sweet Nightmare	3754,25,5000,0,"illusion_mob#vamp::OnKill"
+gef_d01_i,0,0	monster	Bomi	3756,1,30000,0,"illusion_mob#vamp::OnKill"
+
+-	script	illusion_mob#vamp	-1,{
+	OnInit:
+		// ชื่อไฟล์แผนที่.
+		.mapname$ = "gef_d01_i";
+		// มอนสเตอร์ MVP ID.
+		.bossID = 3757;
+		// จำนวนมอนสเตอร์ที่ต้องกำจัด เพื่อเรียกบอส.
+		.mob_count = 1000;
+		$vamp_boss = 0;		// นับจำนวนบอส หากบอสเกิดจะเป็น 1 และจำนวนมอนสเตอร์ที่ต้องกำจัด จะไม่ถูกนับเพิ่ม. (ป้องกันการสแปมบอส)
+							// ถ้าบอสตายจะนับจำนวนมอนสเตอร์ที่ต้องกำจัดใหม่อีกครั้ง.
+		$illusion_vamp = 0;	//จะนับจำนวนมอนสเตอร์ที่ต้องกำจัดใหม่อีกครั้งเมื่อรีสคริป.
+		// บอสมอนสเตอร์มีโอกาสเกิดแม้จะกำจัดมอนอื่นๆไม่ครบ
+		.lucky_chance = false;	// true = เปิด | false = ปิด
+		.max_chance = 10000;	// 100.00%
+		.chance = 500;			// 5.00%
+		// แสดงการนับจำนวนมอนที่กำจัด
+		.show_count = true;	// true = เปิด | false = ปิด
+		end;
+		
+	OnKill:
+		if ($vamp_boss == 1) end;
+		$illusion_vamp++;
+		if (.show_count) {
+			dispbottom "Illusion of Vampire: บอสมอนสเตอร์จะปรากฏตัวเมื่อกำจัดมอนสเตอร์ครบ ["+callfunc("F_InsertComma",$illusion_vamp)+"/"+callfunc("F_InsertComma",.mob_count)+"] ตัว.";
+		}
+		if ($illusion_vamp >= .mob_count && $vamp_boss == 0) {
+			donpcevent strnpcinfo(0)+"::OnSummonMVP";
+		}
+		if (.lucky_chance) {
+			if ($illusion_vamp <= .mob_count) {
+				if (rand(.max_chance) <= .chance) {
+					donpcevent strnpcinfo(0)+"::OnSummonMVP";
+				}
+			}
+		}
+	end;
+		
+	OnSummonMVP:
+		$vamp_boss++;
+		if (.lucky_chance) {
+			mapannounce .mapname$,""+getmonsterinfo(.bossID,MOB_NAME)+":  ใครกันที่กล้ามารบกวนการหลับไหลของข้า!!",bc_map,0xFFBF5C,FW_BOLD,20;
+			sleep 5000;
+		}
+		mapannounce .mapname$,"Illusion of Vampire: บอสมอนสเตอร์ "+getmonsterinfo(.bossID,MOB_NAME)+" จะปรากฏตัวในอีก 10 วินาที.",bc_map,0xFFBF5C,FW_BOLD,20;		
+		sleep 10000;
+		mapannounce .mapname$,"Illusion of Vampire: บอสมอนสเตอร์ "+getmonsterinfo(.bossID,MOB_NAME)+" ได้ปรากฏตัวขึ้นแล้ว !!",bc_map,0xFFBF5C,FW_BOLD,20;
+		monster .mapname$,0,0,"--ja--",.bossID,1,strnpcinfo(0)+"::OnMVPDead";	
+		$illusion_vamp = 0;
+		end;	
+	
+	OnMVPDead:
+		$vamp_boss--;
+		mapannounce .mapname$,"Illusion of Vampire: บอสมอนสเตอร์ "+getmonsterinfo(.bossID[0],MOB_NAME)+" ได้ถูกกำจัดลงแล้ว !!",bc_map,0xFFBF5C,FW_BOLD,20;
+		end;
+}
+
+//============================================================
+// Daily Quest.
+//============================================================
+gef_d01_i,113,230,5	script	Gem#illuvamp	1_F_PRIEST,{
+	disable_items;
+	if (checkquest(.questid[1],PLAYTIME) == 2) { erasequest .questid[0]; erasequest .questid[1]; }
+	mes .NPCname$;
+	mes "เข้ามาเลยเหล่านักผจญภัย";
+	mes "ข้ามีเควสประจำวันให้พวกเจ้าทำ";
+	mes "สนใจเควสไหนก็รับไปได้เลย.";
+	next;
+	switch(select(
+		"[^009900"+.sb$+"^000000] ส่งคนตายกลับสู่โลก",
+		"[^FF0000"+.sb$+"^000000] ยกเลิก"
+	)) {
+		case 1:
+			if (BaseLevel < .lvlrequest) {
+				mes .NPCname$;
+				mes "เจ้าต้องมีเลเวลอย่างน้อย ^990099"+.lvlrequest+"^000000";
+				mes "จึงจะสามารถรับเควสได้.";
+				close;
+			}
+			if (isbegin_quest(.questid[0]) == 0) {
+				mes .NPCname$;
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[0],MOB_NAME)+"^000000 x "+.qhunt[1]+" ตัว";
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[2],MOB_NAME)+"^000000 x "+.qhunt[3]+" ตัว";
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[4],MOB_NAME)+"^000000 x "+.qhunt[5]+" ตัว";
+				mes "เจ้าช่วยข้าได้ไหม?";
+				next;
+				if(select("[^009900"+.sb$+"^000000] ยอมรับเควส :[^FF0000"+.sb$+"^000000] ยกเลิก") == 2){
+					mes .NPCname$;
+					mes "แล้วพบกันใหม่.";
+					close;
+				}
+				mes .NPCname$;
+				mes "ขอบคุณเจ้ามาก";
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				setquest .questid[0];
+				close;
+			}
+			else if (isbegin_quest(.questid[0]) == 1) {
+				mes .NPCname$;
+				if (checkquest(.questid[0],HUNTING) == 2) {
+					mes "ขอบคุณเจ้ามาก";
+					mes "นี่คือของรางวัลของเจ้า.";
+					getexp .rewardexp[0],.rewardexp[1];
+					getitem .reward[0],.reward[1];
+					completequest .questid[0];
+					setquest .questid[1];
+					close;
+				}
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				mes "เมื่อครบแล้วให้กลับมาหาข้าอีกครั้ง.";
+				close;
+			}
+			else {
+				mes .NPCname$;
+				mes "วันนี้เจ้าได้ทำเควสนี้ไปแล้ว";
+				mes "โปรดกลับมาใหม่ในวันพรุ่งนี้.";
+				close;
+			}
+		case 2: end;
+	}
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = ">";
+		//waitingroom "เควสประจำวัน",0;
+		//----------------------------------------
+		// base level request.
+		//----------------------------------------
+		.lvlrequest = 130;
+		//----------------------------------------
+		// quest reward.
+		//----------------------------------------
+		setarray .reward, 
+			25271, 2;			//Illusion Stone 2 ea.
+		setarray .rewardexp,
+			2000000, 1000000;	//BEXP ,JEXP for quest id 2000063
+		//----------------------------------------
+		// quest id.
+		//----------------------------------------
+		setarray .questid,
+			2000063,	//Send the Dead Back to Earth 
+			2000064;	//Send the Dead Back to Earth  - Waiting
+		//----------------------------------------
+		// moster hunt.
+		//----------------------------------------
+		setarray .qhunt,
+			3751, 10,	//Undead Zombie
+			3752, 10,	//Illusion Zombie
+			3753, 10;	//Illusion Ghoul
+		//----------------------------------------
+		// quest mark.
+		//----------------------------------------
+		questinfo QTYPE_DAILYQUEST, QMARK_YELLOW, "!isbegin_quest(2000063) && BaseLevel >= 130";
+		end;
+}
+
+gef_d01_i,116,228,4	script	Antoine#illuvamp	4_GEFFEN_01,{
+	disable_items;
+	if (checkquest(.questid[1],PLAYTIME) == 2) { erasequest .questid[0]; erasequest .questid[1]; }
+	mes .NPCname$;
+	mes "เข้ามาเลยเหล่านักผจญภัย";
+	mes "ข้ามีเควสประจำวันให้พวกเจ้าทำ";
+	mes "สนใจเควสไหนก็รับไปได้เลย.";
+	next;
+	switch(select(
+		"[^009900"+.sb$+"^000000] ฝันหวาน",
+		"[^FF0000"+.sb$+"^000000] ยกเลิก"
+	)) {
+		case 1:
+			if (BaseLevel < .lvlrequest) {
+				mes .NPCname$;
+				mes "เจ้าต้องมีเลเวลอย่างน้อย ^990099"+.lvlrequest+"^000000";
+				mes "จึงจะสามารถรับเควสได้.";
+				close;
+			}
+			if (isbegin_quest(.questid[0]) == 0) {
+				mes .NPCname$;
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[0],MOB_NAME)+"^000000 x "+.qhunt[1]+" ตัว";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "เจ้าช่วยข้าได้ไหม?";
+				next;
+				if(select("[^009900"+.sb$+"^000000] ยอมรับเควส :[^FF0000"+.sb$+"^000000] ยกเลิก") == 2){
+					mes .NPCname$;
+					mes "แล้วพบกันใหม่.";
+					close;
+				}
+				mes .NPCname$;
+				mes "ขอบคุณเจ้ามาก";
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				setquest .questid[0];
+				close;
+			}
+			else if (isbegin_quest(.questid[0]) == 1) {
+				mes .NPCname$;
+				if (checkquest(.questid[0],HUNTING) == 2) && (countitem(.qresource[0]) >= .qresource[1]) {
+					mes "ขอบคุณเจ้ามาก";
+					mes "นี่คือของรางวัลของเจ้า.";
+					delitem .qresource[0],.qresource[1];
+					getexp .rewardexp[0],.rewardexp[1];
+					getitem .reward[0],.reward[1];
+					completequest .questid[0];
+					setquest .questid[1];
+					close;
+				}
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "เมื่อครบแล้วให้กลับมาหาข้าอีกครั้ง.";
+				close;
+			}
+			else {
+				mes .NPCname$;
+				mes "วันนี้เจ้าได้ทำเควสนี้ไปแล้ว";
+				mes "โปรดกลับมาใหม่ในวันพรุ่งนี้.";
+				close;
+			}
+		case 2: end;
+	}
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = ">";
+		//waitingroom "เควสประจำวัน",0;
+		//----------------------------------------
+		// base level request.
+		//----------------------------------------
+		.lvlrequest = 130;
+		//----------------------------------------
+		// quest reward.
+		//----------------------------------------
+		setarray .reward, 
+			25271, 3;			//Illusion Stone 3 ea.
+		setarray .rewardexp,
+			2000000, 1000000;	//BEXP ,JEXP for quest id 2000065
+		//----------------------------------------
+		// quest id.
+		//----------------------------------------
+		setarray .questid,
+			2000065,	//Sweet Dreams
+			2000066;	//Sweet Dreams - Waiting
+		//----------------------------------------
+		// quest request.
+		//----------------------------------------
+		setarray .qresource,
+			25270, 20;	//Wavy Mane
+		//----------------------------------------
+		// moster hunt.
+		//----------------------------------------
+		setarray .qhunt,
+			3754, 10;	//Sweet Nightmare
+		//----------------------------------------
+		// quest mark.
+		//----------------------------------------
+		questinfo QTYPE_DAILYQUEST, QMARK_YELLOW, "!isbegin_quest(2000065) && BaseLevel >= 130";
+		end;
+}
+
+gef_d01_i,81,135,5	script	Wizard#illuvamp	9,{
+	disable_items;
+	if (checkquest(.questid[1],PLAYTIME) == 2) { erasequest .questid[0]; erasequest .questid[1]; }
+	mes .NPCname$;
+	mes "เข้ามาเลยเหล่านักผจญภัย";
+	mes "ข้ามีเควสประจำวันให้พวกเจ้าทำ";
+	mes "สนใจเควสไหนก็รับไปได้เลย.";
+	next;
+	switch(select(
+		"[^009900"+.sb$+"^000000] เลือดปลอมที่ไม่น่าเชื่อถือ",
+		"[^FF0000"+.sb$+"^000000] ยกเลิก"
+	)) {
+		case 1:
+			if (BaseLevel < .lvlrequest) {
+				mes .NPCname$;
+				mes "เจ้าต้องมีเลเวลอย่างน้อย ^990099"+.lvlrequest+"^000000";
+				mes "จึงจะสามารถรับเควสได้.";
+				close;
+			}
+			if (isbegin_quest(.questid[0]) == 0) {
+				mes .NPCname$;
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[0],MOB_NAME)+"^000000 x "+.qhunt[1]+" ตัว";
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[2],MOB_NAME)+"^000000 x "+.qhunt[3]+" ตัว";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "กับ <ITEM>"+getitemname(.qresource[2])+"<INFO>"+.qresource[2]+"</INFO></ITEM> x "+.qresource[3]+" อัน";
+				mes "เจ้าช่วยข้าได้ไหม?";
+				next;
+				if(select("[^009900"+.sb$+"^000000] ยอมรับเควส :[^FF0000"+.sb$+"^000000] ยกเลิก") == 2){
+					mes .NPCname$;
+					mes "แล้วพบกันใหม่.";
+					close;
+				}
+				mes .NPCname$;
+				mes "ขอบคุณเจ้ามาก";
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				setquest .questid[0];
+				close;
+			}
+			else if (isbegin_quest(.questid[0]) == 1) {
+				mes .NPCname$;
+				if (checkquest(.questid[0],HUNTING) == 2) && (countitem(.qresource[0]) >= .qresource[1] && countitem(.qresource[2]) >= .qresource[3]) {
+					mes "ขอบคุณเจ้ามาก";
+					mes "นี่คือของรางวัลของเจ้า.";
+					delitem .qresource[0],.qresource[1];
+					delitem .qresource[2],.qresource[3];
+					getexp .rewardexp[0],.rewardexp[1];
+					getitem .reward[0],.reward[1];
+					completequest .questid[0];
+					setquest .questid[1];
+					close;
+				}
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "และ <ITEM>"+getitemname(.qresource[2])+"<INFO>"+.qresource[2]+"</INFO></ITEM> x "+.qresource[3]+" อัน";
+				mes "เมื่อครบแล้วให้กลับมาหาข้าอีกครั้ง.";
+				close;
+			}
+			else {
+				mes .NPCname$;
+				mes "วันนี้เจ้าได้ทำเควสนี้ไปแล้ว";
+				mes "โปรดกลับมาใหม่ในวันพรุ่งนี้.";
+				close;
+			}
+		case 2: end;
+	}
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = ">";
+		//waitingroom "เควสประจำวัน",0;
+		//----------------------------------------
+		// base level request.
+		//----------------------------------------
+		.lvlrequest = 130;
+		//----------------------------------------
+		// quest reward.
+		//----------------------------------------
+		setarray .reward, 
+			25271, 3;			//Illusion Stone 3 ea.
+		setarray .rewardexp,
+			2000000, 1000000;	//BEXP ,JEXP for quest id 2000067
+		//----------------------------------------
+		// quest id.
+		//----------------------------------------
+		setarray .questid,
+			2000067,	//Unreliable Fake Blood
+			2000068;	//Unreliable Fake Blood - Waiting
+		//----------------------------------------
+		// quest request.
+		//----------------------------------------
+		setarray .qresource,
+			25268, 10,	//Sticky Blood
+			25269, 10;	//Mushroom Sap
+		//----------------------------------------
+		// moster hunt.
+		//----------------------------------------
+		setarray .qhunt,
+			3750, 5,	//Matte Drainliar
+			3755, 5;	//Black Mushroom
+		//----------------------------------------
+		// quest mark.
+		//----------------------------------------
+		questinfo QTYPE_DAILYQUEST, QMARK_YELLOW, "!isbegin_quest(2000067) && BaseLevel >= 130";
+		end;
+}
+
+gef_dun01,134,224,3	script	Mojo#illuvamp	2_F_MAGICMASTER,{
+	disable_items;
+	if (checkquest(.questid[1],PLAYTIME) == 2) { erasequest .questid[0]; erasequest .questid[1]; }
+	mes .NPCname$;
+	mes "เข้ามาเลยเหล่านักผจญภัย";
+	mes "ข้ามีเควสประจำวันให้พวกเจ้าทำ";
+	mes "สนใจเควสไหนก็รับไปได้เลย.";
+	next;
+	switch(select(
+		"[^009900"+.sb$+"^000000] อยากรู้อยากเห็นโดยธรรมชาติ",
+		"[^FF0000"+.sb$+"^000000] ยกเลิก"
+	)) {
+		case 1:
+			if (BaseLevel < .lvlrequest) {
+				mes .NPCname$;
+				mes "เจ้าต้องมีเลเวลอย่างน้อย ^990099"+.lvlrequest+"^000000";
+				mes "จึงจะสามารถรับเควสได้.";
+				close;
+			}
+			if (isbegin_quest(.questid[0]) == 0) {
+				mes .NPCname$;
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[0],MOB_NAME)+"^000000 x "+.qhunt[1]+" ตัว";
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[2],MOB_NAME)+"^000000 x "+.qhunt[3]+" ตัว";
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[4],MOB_NAME)+"^000000 x "+.qhunt[5]+" ตัว";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "กับ <ITEM>"+getitemname(.qresource[2])+"<INFO>"+.qresource[2]+"</INFO></ITEM> x "+.qresource[3]+" อัน";
+				mes "เจ้าช่วยข้าได้ไหม?";
+				next;
+				if(select("[^009900"+.sb$+"^000000] ยอมรับเควส :[^FF0000"+.sb$+"^000000] ยกเลิก") == 2){
+					mes .NPCname$;
+					mes "แล้วพบกันใหม่.";
+					close;
+				}
+				mes .NPCname$;
+				mes "ขอบคุณเจ้ามาก";
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				setquest .questid[0];
+				close;
+			}
+			else if (isbegin_quest(.questid[0]) == 1) {
+				mes .NPCname$;
+				if (checkquest(.questid[0],HUNTING) == 2) && (countitem(.qresource[0]) >= .qresource[1] && countitem(.qresource[2]) >= .qresource[3]) {
+					mes "ขอบคุณเจ้ามาก";
+					mes "นี่คือของรางวัลของเจ้า.";
+					delitem .qresource[0],.qresource[1];
+					delitem .qresource[2],.qresource[3];
+					getexp .rewardexp[0],.rewardexp[1];
+					getitem .reward[0],.reward[1];
+					completequest .questid[0];
+					setquest .questid[1];
+					close;
+				}
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "และ <ITEM>"+getitemname(.qresource[2])+"<INFO>"+.qresource[2]+"</INFO></ITEM> x "+.qresource[3]+" อัน";
+				mes "เมื่อครบแล้วให้กลับมาหาข้าอีกครั้ง.";
+				close;
+			}
+			else {
+				mes .NPCname$;
+				mes "วันนี้เจ้าได้ทำเควสนี้ไปแล้ว";
+				mes "โปรดกลับมาใหม่ในวันพรุ่งนี้.";
+				close;
+			}
+		case 2: end;
+	}
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = ">";
+		//waitingroom "เควสประจำวัน",0;
+		//----------------------------------------
+		// base level request.
+		//----------------------------------------
+		.lvlrequest = 130;
+		//----------------------------------------
+		// quest reward.
+		//----------------------------------------
+		setarray .reward, 
+			25271, 3;			//Illusion Stone 3 ea.
+		setarray .rewardexp,
+			2000000, 1000000;	//BEXP ,JEXP for quest id 2000069
+		//----------------------------------------
+		// quest id.
+		//----------------------------------------
+		setarray .questid,
+			2000069,	//Curious by Nature
+			2000070;	//Curious by Nature - Waiting
+		//----------------------------------------
+		// quest request.
+		//----------------------------------------
+		setarray .qresource,
+			25266, 10,	//Dried Yggdrasil Leaf
+			25267, 10;	//Suspicious Pentacle
+		//----------------------------------------
+		// moster hunt.
+		//----------------------------------------
+		setarray .qhunt,
+			3751, 5,	//Undead Zombie
+			3752, 5,	//Illusion Zombie
+			3753, 5;	//Illusion Ghoul
+		//----------------------------------------
+		// quest mark.
+		//----------------------------------------
+		questinfo QTYPE_DAILYQUEST, QMARK_YELLOW, "!isbegin_quest(2000069) && BaseLevel >= 130";
+		end;
+}
+
+gef_d01_i,190,96,3	script	Jojo#illuvamp	4_M_JOB_WIZARD,{
+	disable_items;
+	if (checkquest(.questid[1],PLAYTIME) == 2) { erasequest .questid[0]; erasequest .questid[1]; }
+	mes .NPCname$;
+	mes "เข้ามาเลยเหล่านักผจญภัย";
+	mes "ข้ามีเควสประจำวันให้พวกเจ้าทำ";
+	mes "สนใจเควสไหนก็รับไปได้เลย.";
+	next;
+	switch(select(
+		"[^009900"+.sb$+"^000000] เรียนที่แสงสลัว",
+		"[^FF0000"+.sb$+"^000000] ยกเลิก"
+	)) {
+		case 1:
+			if (BaseLevel < .lvlrequest) {
+				mes .NPCname$;
+				mes "เจ้าต้องมีเลเวลอย่างน้อย ^990099"+.lvlrequest+"^000000";
+				mes "จึงจะสามารถรับเควสได้.";
+				close;
+			}
+			if (isbegin_quest(.questid[0]) == 0) {
+				mes .NPCname$;
+				mes "รวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "และ <ITEM>"+getitemname(.qresource[2])+"<INFO>"+.qresource[2]+"</INFO></ITEM> x "+.qresource[3]+" อัน";
+				mes "เจ้าช่วยข้าได้ไหม?";
+				next;
+				if(select("[^009900"+.sb$+"^000000] ยอมรับเควส :[^FF0000"+.sb$+"^000000] ยกเลิก") == 2){
+					mes .NPCname$;
+					mes "แล้วพบกันใหม่.";
+					close;
+				}
+				mes .NPCname$;
+				mes "ขอบคุณเจ้ามาก";
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				setquest .questid[0];
+				close;
+			}
+			else if (isbegin_quest(.questid[0]) == 1) {
+				mes .NPCname$;
+				if (checkquest(.questid[0],HUNTING) == 2) && (countitem(.qresource[0]) >= .qresource[1] && countitem(.qresource[2]) >= .qresource[3]) {
+					mes "ขอบคุณเจ้ามาก";
+					mes "นี่คือของรางวัลของเจ้า.";
+					delitem .qresource[0],.qresource[1];
+					delitem .qresource[2],.qresource[3];
+					getexp .rewardexp[0],.rewardexp[1];
+					getitem .reward[0],.reward[1];
+					completequest .questid[0];
+					setquest .questid[1];
+					close;
+				}
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "และ <ITEM>"+getitemname(.qresource[2])+"<INFO>"+.qresource[2]+"</INFO></ITEM> x "+.qresource[3]+" อัน";
+				mes "เมื่อครบแล้วให้กลับมาหาข้าอีกครั้ง.";
+				close;
+			}
+			else {
+				mes .NPCname$;
+				mes "วันนี้เจ้าได้ทำเควสนี้ไปแล้ว";
+				mes "โปรดกลับมาใหม่ในวันพรุ่งนี้.";
+				close;
+			}
+		case 2: end;
+	}
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = ">";
+		//waitingroom "เควสประจำวัน",0;
+		//----------------------------------------
+		// base level request.
+		//----------------------------------------
+		.lvlrequest = 130;
+		//----------------------------------------
+		// quest reward.
+		//----------------------------------------
+		setarray .reward, 
+			25271, 3;			//Illusion Stone 3 ea.
+		setarray .rewardexp,
+			2000000, 1000000;	//BEXP ,JEXP for quest id 2000071
+		//----------------------------------------
+		// quest id.
+		//----------------------------------------
+		setarray .questid,
+			2000071,	//Studying in Dim Light
+			2000072;	//Studying in Dim Light - Waiting
+		//----------------------------------------
+		// quest request.
+		//----------------------------------------
+		setarray .qresource,
+			25264, 10,	//Cluster of Nightmares
+			25265, 10;	//Shining Spore
+		//----------------------------------------
+		// quest mark.
+		//----------------------------------------
+		questinfo QTYPE_DAILYQUEST, QMARK_YELLOW, "!isbegin_quest(2000071) && BaseLevel >= 130";
+		end;
+}
+
+gef_d01_i,186,97,4	script	King#illuvamp	4_NFBAT,{
+	disable_items;
+	if (checkquest(.questid[1],PLAYTIME) == 2) { erasequest .questid[0]; erasequest .questid[1]; }
+	mes .NPCname$;
+	mes "เข้ามาเลยเหล่านักผจญภัย";
+	mes "ข้ามีเควสประจำวันให้พวกเจ้าทำ";
+	mes "สนใจเควสไหนก็รับไปได้เลย.";
+	next;
+	switch(select(
+		"[^009900"+.sb$+"^000000] เพื่อนบ้านที่เสียงดัง",
+		"[^FF0000"+.sb$+"^000000] ยกเลิก"
+	)) {
+		case 1:
+			if (BaseLevel < .lvlrequest) {
+				mes .NPCname$;
+				mes "เจ้าต้องมีเลเวลอย่างน้อย ^990099"+.lvlrequest+"^000000";
+				mes "จึงจะสามารถรับเควสได้.";
+				close;
+			}
+			if (isbegin_quest(.questid[0]) == 0) {
+				mes .NPCname$;
+				mes "กำจัด ^990099"+getmonsterinfo(.qhunt[0],MOB_NAME)+"^000000 x "+.qhunt[1]+" ตัว";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "เจ้าช่วยข้าได้ไหม?";
+				next;
+				if(select("[^009900"+.sb$+"^000000] ยอมรับเควส :[^FF0000"+.sb$+"^000000] ยกเลิก") == 2){
+					mes .NPCname$;
+					mes "แล้วพบกันใหม่.";
+					close;
+				}
+				mes .NPCname$;
+				mes "ขอบคุณเจ้ามาก";
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				setquest .questid[0];
+				close;
+			}
+			else if (isbegin_quest(.questid[0]) == 1) {
+				mes .NPCname$;
+				if (checkquest(.questid[0],HUNTING) == 2) && (countitem(.qresource[0]) >= .qresource[1]) {
+					mes "ขอบคุณเจ้ามาก";
+					mes "นี่คือของรางวัลของเจ้า.";
+					delitem .qresource[0],.qresource[1];
+					delitem .qresource[2],.qresource[3];
+					getexp .rewardexp[0],.rewardexp[1];
+					getitem .reward[0],.reward[1];
+					completequest .questid[0];
+					setquest .questid[1];
+					close;
+				}
+				mes "อย่าลืมกำจัดมอนเสตอร์ที่อยู่ภายในดันเจี้ยนลวงตา.";
+				mes "และรวบรวม <ITEM>"+getitemname(.qresource[0])+"<INFO>"+.qresource[0]+"</INFO></ITEM> x "+.qresource[1]+" อัน";
+				mes "เมื่อครบแล้วให้กลับมาหาข้าอีกครั้ง.";
+				close;
+			}
+			else {
+				mes .NPCname$;
+				mes "วันนี้เจ้าได้ทำเควสนี้ไปแล้ว";
+				mes "โปรดกลับมาใหม่ในวันพรุ่งนี้.";
+				close;
+			}
+		case 2: end;
+	}
+	
+	OnInit:
+		.NPCname$ = "[^0000FF "+strnpcinfo(1)+" ^000000]";
+		.sb$ = ">";
+		//waitingroom "เควสประจำวัน",0;
+		//----------------------------------------
+		// base level request.
+		//----------------------------------------
+		.lvlrequest = 130;
+		//----------------------------------------
+		// quest reward.
+		//----------------------------------------
+		setarray .reward, 
+			25271, 2;			//Illusion Stone 2 ea.
+		setarray .rewardexp,
+			2000000, 1000000;	//BEXP ,JEXP for quest id 2000073
+		//----------------------------------------
+		// quest id.
+		//----------------------------------------
+		setarray .questid,
+			2000073,	//Noisy Neighbors
+			2000074;	//Noisy Neighbors - Waiting
+		//----------------------------------------
+		// quest request.
+		//----------------------------------------
+		setarray .qresource,
+			25263, 20;	//Short Bat Hair
+		//----------------------------------------
+		// moster hunt.
+		//----------------------------------------
+		setarray .qhunt,
+			3750, 10;	//Matte Drainliars
+		//----------------------------------------
+		// quest mark.
+		//----------------------------------------
+		questinfo QTYPE_DAILYQUEST, QMARK_YELLOW, "!isbegin_quest(2000073) && BaseLevel >= 130";
+		end;
+}

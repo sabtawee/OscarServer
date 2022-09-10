@@ -1,0 +1,39 @@
+//===== rAthena Script =======================================
+//= Macro Checker
+//===== By: ==================================================
+//= Shakto
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= [Official Conversion]
+//= Macro checker
+//===== Additional Comments: =================================
+//= 1.0 First version. [Shakto]
+//============================================================
+
+-	script	macrochecker	-1,{
+//--Start of the Script
+OnPCLoginEvent:
+	.timer = rand(.timermin,.timermax);
+	addtimer .timer,"macrochecker::OnCheckBot";
+	end;
+
+OnCheckBot:
+	while(checkvending() >= 1 || checkchatting() == 1 || checkidle()>=.dlimit) {
+		sleep2 .delay;
+	}
+
+	check_macro();
+	deltimer "macrochecker::OnCheckBot";
+	.timer = rand(.timermin,.timermax);
+	addtimer .timer,"macrochecker::OnCheckBot";
+	end;
+
+OnInit:
+	set .timermin, 1000*60*60; //Timer in milliseconds. - 1h
+	set .timermax, 1000*60*120; //Timer in milliseconds. - 2h
+	set .delay, 5000; //Delay for idle re-check check.
+	set .dlimit, 60*1; // Don't check if afk > 1 min
+}

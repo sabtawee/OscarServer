@@ -1,0 +1,30 @@
+-	script	WEEKLY_EXP_CONTROL	-1,{
+
+Oninit:
+	
+	// เรทที่จะเพิ่ม เสาร์/อาทิตย์
+	// ตัวอย่าง 3 = x3 หรือ 3 เท่า จากดั้งเดิมที่ตั้ง
+	$@multiple_rates = 3;
+	
+	end;
+
+OnClock0000:
+	if(gettime(DT_DAYOFWEEK) == SATURDAY || gettime(DT_DAYOFWEEK) == SUNDAY ) {
+		setbattleflag("base_exp_rate",(getbattleflag("base_exp_rate")*$@multiple_rates),true); 
+		setbattleflag("job_exp_rate",(getbattleflag("job_exp_rate")*$@multiple_rates),true); 
+		setbattleflag("item_rate_common",(getbattleflag("item_rate_common")*$@multiple_rates),true); 
+		setbattleflag("item_rate_heal",(getbattleflag("item_rate_heal")*$@multiple_rates),true); 
+		setbattleflag("item_rate_use",(getbattleflag("item_rate_use")*$@multiple_rates),true); 
+		setbattleflag("item_rate_equip",(getbattleflag("item_rate_equip")*$@multiple_rates),true);
+		announce "[System] เซิร์ฟเวอร์ได้เข้าสู่สถานะ x" + $@multiple_rates + " (ยกเว้นดรอปการ์ด)",BC_ALL|BC_BLUE;
+	}else{
+		setbattleflag("base_exp_rate",(getbattleflag("base_exp_rate")/$@multiple_rates),true); 
+		setbattleflag("job_exp_rate",(getbattleflag("job_exp_rate")/$@multiple_rates),true); 
+		setbattleflag("item_rate_common",(getbattleflag("item_rate_common")/$@multiple_rates),true); 
+		setbattleflag("item_rate_heal",(getbattleflag("item_rate_heal")/$@multiple_rates),true); 
+		setbattleflag("item_rate_use",(getbattleflag("item_rate_use")/$@multiple_rates),true); 
+		setbattleflag("item_rate_equip",(getbattleflag("item_rate_equip")/$@multiple_rates),true);
+		announce "[System] เซิร์ฟเวอร์ได้กลับสู่สถานะดั้งเดิม",BC_ALL|BC_BLUE;		
+	}
+	end;
+}

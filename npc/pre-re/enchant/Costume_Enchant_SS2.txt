@@ -1,0 +1,1352 @@
+morocc,154,135,4	script	Costume Enchant#2	4_M_JP_JESTER,{
+disable_items;
+	
+	//-------------------------------------------------------------------------------------//
+
+	set .@successtier1, 80; 			// โอกาศสำเร็จ เทียร์1 (สูงสุดที่ 99)
+	set .@successtier2, 60; 			// โอกาศสำเร็จ เทียร์2 (สูงสุดที่ 99)
+	
+	set .@successtier1safe, 100; 			// โอกาศสำเร็จ เทียร์1 
+	set .@successtier2safe, 100; 			// โอกาศสำเร็จ เทียร์2 
+	
+	//-------------------------------------------------------------------------------------//
+	set .@EXP, 8; // EXP%
+	set .@DROP, 9; // Drop%
+	set .@MAXHP, 1; // MaxHP
+	set .@MAXSP, 2; // MaxSP
+	set .@ASPD, 16; // เพิ่มความไวในการโจมตี%
+	set .@DEF, 20; // Def
+	set .@MDEF, 21; // Mdef
+	set .@DefSMALL, 160; // ป้องกันมอนเตอร์ขนาดเล็ก%
+	set .@DefMIDIUM, 161; // ป้องกันมอนเตอร์ขนาดกลาง%
+	set .@DefLARGE, 162; // ป้องกันมอนเตอร์ขนาดใหญ่%
+	set .@HPRE, 11; // ReHp%
+	set .@SPRE, 12; // ReSp%
+	
+	set .@EXPr, rand(1,5); // สุ่ม1-5
+	set .@DROPr, rand(1,5); // สุ่ม1-5
+	set .@MAXHPr, rand(100,500); // สุ่ม100-500
+	set .@MAXSPr, rand(10,50); // สุ่ม10-50
+	set .@ASPDr, rand(1,3); // สุ่ม1-3
+	set .@DEFr, rand(1,5); // สุ่ม1-3
+	set .@MDEFr, rand(1,5); // สุ่ม1-3
+	set .@DefSMALLr, rand(1,3); // สุ่ม1-3
+	set .@DefMIDIUMr, rand(1,3); // สุ่ม1-3
+	set .@DefLARGEr, rand(1,3); // สุ่ม1-3
+	set .@HPREr, rand(1,10); // สุ่ม1-10
+	set .@SPREr, rand(1,10); // สุ่ม1-10
+	
+	set .@ATKk, 13; // ATK%
+	set .@MATKk, 14; // MATK%
+	set .@SUBNOTHING, 56; //ป้องกันเวทย์มนต์ทุกธาตุ%
+	set .@SUBWATER, 58; //ป้องกันเวทย์มนต์ธาตุน้ำ%
+	set .@SUBGROUND, 60; //ป้องกันเวทย์มนต์ธาตุดิน%
+	set .@SUBFIRE, 62; //ป้องกันเวทย์มนต์ธาตุไฟ%
+	set .@SUBWIND, 64; //ป้องกันเวทย์มนต์ธาตุลม%
+	set .@SUBPOISON, 66; //ป้องกันเวทย์มนต์ธาตุพิษ%
+	set .@SUBSAINT, 68; //ป้องกันเวทย์มนต์ธาตุแสง%
+	set .@SUBDARKNESS, 70; //ป้องกันเวทย์มนต์ธาตุมืด%
+	set .@SUBTELEKINESIS, 72; //ป้องกันเวทย์มนต์ธาตุโกส%
+	set .@SUBUNDEAD, 74; //ป้องกันเวทย์มนต์ธาตุผีดิบ%
+	set .@SUBLONGR, 167; // ลดดาเมจจากการโจมตีระยะไกล%
+	set .@CASTTIME, 170; // ลดระยะเวลาในการร่ายสกิล%
+	set .@Delay, 171; // ลดดีเลย์หลังร่ายสกิล%
+	set .@SUBPLAYER, 206; // ป้องกันกึ่งมนุษย์%(Player)
+	set .@ATKPLAYER, 208; // เพิ่มพลังโจมตีกึ่งมนุษย์%(Player)
+	set .@MATKPLAYER, 210; // เพิ่มพลังโจมตีเวทย์กึ่งมนุษย์%(Player)
+	set .@ATKBOSS, 148; // เพิ่มพลังโจมตีมอนเตอร์ประเภท บอส
+	set .@MATKBOSS, 152; // เพิ่มพลังโจมตีเวทย์มอนเตอร์ประเภท บอส
+	
+	set .@ATKr, rand(1,3); // สุ่ม1-3
+	set .@MATKr, rand(1,3); // สุ่ม1-3
+	set .@SUBEler, rand(1,3); // สุ่ม1-3
+	set .@SUBLONGRr, rand(1,5); // สุ่ม1-5
+	set .@CASTTIMEr, rand(1,3); // สุ่ม1-3
+	set .@Delayr, rand(1,3); // สุ่ม1-3
+	set .@SUBPLAYERr, rand(1,3); // สุ่ม1-3
+	set .@ATKPLAYERr, rand(1,3); // สุ่ม1-3
+	set .@MATKPLAYERr, rand(1,3); // สุ่ม1-3
+	set .@ATKBOSSr, rand(1,5); // สุ่ม1-5
+	set .@MATKBOSSr, rand(1,5); // สุ่ม1-5
+	
+	.@ref = getequiprefinerycnt(.@id);
+				if (checkweight(1201,1) == 0) {
+					mes "[เสริมพลัง]";
+					mes "ช่องเก็บของเต็ม";
+					close;
+				}
+				if (MaxWeight - Weight < 10000) {
+					mes "[เสริมพลัง]";
+					mes "น้ำหนักเกิน";
+					close;
+				}
+				
+					mes "[เสริมพลัง]";
+					mes "สวัสดีข้า";
+					mes "สามารถเสริมพลัง ไอเทมตอสตูมให้เจ้าได้ ";
+					mes "______________________________";
+	next;
+	switch(select("^000099เสริมพลังแบบธรรมดา^000000","^000099เสริมพลังกันแตก ^000000","^cc0000ลบพลังแฝง^000000","^009900รายละเอียด^000000","ยกเลิก")) {
+	
+		case 1:
+					mes "[เสริมพลัง]";
+					mes "ข้าต้องการไอเทมดังนี้";
+					mes " ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919900</INFO></ITEM>^000000. 1 ea";
+					mes " ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000. 10 ea";
+					mes " ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000. 10 ea";
+					mes " และเงิน  ^FF0000500,000 ^000000Zeny";	
+					mes " ";
+					mes "______________________________";
+	next;
+
+	switch(select("^000099Option Tier Games One  ["+ .@successtier1 +"%]^000000","^000099Option Tier Games Two ["+ .@successtier2 +"%]^000000","ยกเลิก")) {
+	
+		case 1:	
+		
+	setarray .@indices[1], EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID, EQI_COSTUME_HEAD_LOW, EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON, EQI_SHADOW_SHIELD, EQI_COSTUME_GARMENT, EQI_SHADOW_SHOES, EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+		for( set .@i,1; .@i <= 10; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+					
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+					
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+			
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto enc5H;
+			 if ( @card1 && @card2 && @card3 && @card4) goto enc5H;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto enc5H;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto enc5H;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto enc5H;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto enc5H;
+				
+			enc4H:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 1 ไปแล้ว!!";
+					close;
+			enc5H:			
+					set .RanTier1, rand(1,100);
+		if ( .RanTier1 <= .@successtier1 ){
+					set .ranoption, rand(1,12);
+		if ( .ranoption <= 1 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@EXP,.@EXPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มค่าประสบการณ์^000000 ^ff0066"+ .@EXPr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DROP,.@DROPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มอัตราการดอร์ป^000000 ^ff0066"+ .@DROPr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@MAXHP,.@MAXHPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม MaxHP^000000 ^ff0066"+ .@MAXHPr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@MAXSP,.@MAXSPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม MaxSP^000000 ^ff0066"+ .@MAXSPr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@ASPD,.@ASPDr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มความไวในการโจมตี^000000 ^ff0066"+ .@ASPDr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DEF,.@DEFr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม DEF^000000 ^ff0066"+ .@DEFr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@MDEF,.@MDEFr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม MDEF^000000 ^ff0066"+ .@MDEFr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DefSMALL,.@DefSMALLr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ขนาดเล็ก^000000 ^ff0066"+ .@DefSMALLr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DefMIDIUM,.@DefMIDIUMr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ขนาดกลาง^000000 ^ff0066"+ .@DefMIDIUMr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DefLARGE,.@DefLARGEr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ขนาดใหญ่^000000 ^ff0066"+ .@DefLARGEr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@HPRE,.@HPREr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 HP Recovery^000000 ^ff0066"+ .@HPREr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@SPRE,.@SPREr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 SP Recovery^000000 ^ff0066"+ .@SPREr +"^000000%";
+					close;
+					}
+					}
+		if ( .RanTier1 <= 100 ){
+					callfunc "Chkprogress2CR3";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//	
+	case 2:	
+	
+	setarray .@indices[1], EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID, EQI_COSTUME_HEAD_LOW, EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON, EQI_SHADOW_SHIELD, EQI_COSTUME_GARMENT, EQI_SHADOW_SHOES, EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+		for( set .@i,1; .@i <= 10; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+// anti-hack
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+					
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+					
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+			
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto enc5S;
+			else if ( @card1 && @card2 && @card3 && @card4) goto enc4S;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto enc4S;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto enc4S;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto enc4S;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto enc4S;
+				
+			enc4S:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 1 ก่อน!!";
+					close;
+					
+			enc6S:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 2 ไปแล้ว!!";
+					close;
+					
+			enc5S:				
+			
+				//if (getequiprandomoption(.@id,1,ROA_ID)) goto enc6S;
+				
+					set .RanTier2, rand(1,100);
+		if ( .RanTier2 <= .@successtier2 ){
+					set .randfish, rand(1,11);
+		if ( .randfish <= 1 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@ATKk,.@ATKr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 2 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@MATKk,.@MATKr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 3 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@SUBNOTHING,.@SUBEler,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBEler +"^000000%";
+					close;
+					}
+		if ( .randfish <= 4 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@SUBLONGR,.@SUBLONGRr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ลดดาเมจจากการโจมตีระยะไกล^000000 ^ff0066"+ .@SUBLONGRr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 5 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@CASTTIME,.@CASTTIMEr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ลดระยะเวลาในการร่ายสกิล^000000 ^ff0066"+ .@CASTTIMEr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 6 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@Delay,.@Delayr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ลดดีเลย์หลังร่ายสกิล^000000 ^ff0066"+ .@Delayr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 7 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@SUBPLAYER,.@SUBPLAYERr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ป้องกันกึ่งมนุษย์(Player)^000000 ^ff0066"+ .@SUBPLAYERr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 8 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@ATKPLAYER,.@ATKPLAYERr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีกายภาพ(Player)^000000 ^ff0066"+ .@ATKPLAYERr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 9 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@MATKPLAYER,.@MATKPLAYERr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีเวทย์มนต์(Player)^000000 ^ff0066"+ .@MATKPLAYERr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 10 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@ATKBOSS,.@ATKBOSSr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ Boss^000000 ^ff0066"+ .@ATKBOSSr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 11 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@MATKBOSS,.@MATKBOSSr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ Boss^000000 ^ff0066"+ .@MATKBOSSr +"^000000%";
+					close;
+					}
+					}
+		if ( .RanTier2 <= 100 ){
+					callfunc "Chkprogress2CR2";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	case 3:	
+					mes "[เสริมพลัง]";
+					close;
+					}
+		
+	//--------------------------------------------------------------------------------//
+	
+case 2:	
+					mes "[เสริมพลัง]";
+					mes "ข้าต้องการไอเทมดังนี้";
+					mes " ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919900</INFO></ITEM>^000000. 1 ea";
+					mes " ^FFFFFF<ITEM>^4D4DFF[Prevent Option]^000000<INFO>919901</INFO></ITEM>^000000. 1 ea";
+					mes " ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000. 10 ea";
+					mes " ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000. 10 ea";
+					mes " และเงิน  ^FF0000800,000 ^000000Zeny";	
+					mes "______________________________";
+	next;
+
+	switch(select("^000099Option Tier Games One   ["+ .@successtier1safe +"%]^000000","^000099Option Tier Games Two   ["+ .@successtier2safe +"%]^000000","ยกเลิก")) {
+	
+		case 1:	
+		
+	setarray .@indices[1], EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID, EQI_COSTUME_HEAD_LOW, EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON, EQI_SHADOW_SHIELD, EQI_COSTUME_GARMENT, EQI_SHADOW_SHOES, EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+		for( set .@i,1; .@i <= 10; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+					
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+					
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+			
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto enc5H1;
+			 if ( @card1 && @card2 && @card3 && @card4) goto enc5H1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto enc5H1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto enc5H1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto enc5H1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto enc5H1;
+				
+			enc4H1:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 1 ไปแล้ว!!";
+					close;
+			enc5H1:			
+					set .RanTier1safe, rand(1,100);
+		if ( .RanTier1safe <= .@successtier1safe ){
+					set .ranoption, rand(1,12);
+		if ( .ranoption <= 1 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@EXP,.@EXPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มค่าประสบการณ์^000000 ^ff0066"+ .@EXPr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 2 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DROP,.@DROPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มอัตราการดอร์ป^000000 ^ff0066"+ .@DROPr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 3 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@MAXHP,.@MAXHPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม MaxHP^000000 ^ff0066"+ .@MAXHPr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 4 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@MAXSP,.@MAXSPr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม MaxSP^000000 ^ff0066"+ .@MAXSPr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 5 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@ASPD,.@ASPDr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่มความไวในการโจมตี^000000 ^ff0066"+ .@ASPDr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 6 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DEF,.@DEFr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม DEF^000000 ^ff0066"+ .@DEFr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 7 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@MDEF,.@MDEFr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 เพิ่ม MDEF^000000 ^ff0066"+ .@MDEFr +"^000000";
+					close;
+					}
+		if ( .ranoption <= 8 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DefSMALL,.@DefSMALLr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ขนาดเล็ก^000000 ^ff0066"+ .@DefSMALLr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 9 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DefMIDIUM,.@DefMIDIUMr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ขนาดกลาง^000000 ^ff0066"+ .@DefMIDIUMr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 10 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@DefLARGE,.@DefLARGEr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ป้องกันมอนเตอร์ขนาดใหญ่^000000 ^ff0066"+ .@DefLARGEr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 11 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@HPRE,.@HPREr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 HP Recovery^000000 ^ff0066"+ .@HPREr +"^000000%";
+					close;
+					}
+		if ( .ranoption <= 12 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 131;
+					setrandomoption(.@id,0,.@SPRE,.@SPREr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 SP Recovery^000000 ^ff0066"+ .@SPREr +"^000000%";
+					close;
+					}
+					}
+		if ( .RanTier1safe <= 100 ){
+					callfunc "Chkprogress2CRT1";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					close;
+	//--------------------------------------------------------------------------------//	
+	case 2:	
+	
+	setarray .@indices[1], EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID, EQI_COSTUME_HEAD_LOW, EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON, EQI_SHADOW_SHIELD, EQI_COSTUME_GARMENT, EQI_SHADOW_SHOES, EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+		for( set .@i,1; .@i <= 10; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+// anti-hack
+				if (callfunc("F_IsEquipIDHack", .@id, .@part))
+					close;
+					
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่จะเสริมพลังคือ ^000099" + getequipname(.@id) + "^000000";
+					
+	next;
+					
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+			
+				if (getequiprandomoption(.@id,0,ROA_ID)) goto enc5S1;
+			else if ( @card1 && @card2 && @card3 && @card4) goto enc4S1;
+			else if ( @card1 && @card2 && @card3 && !@card4) goto enc4S1;
+			else if ( @card1 && @card2 && !@card3 && !@card4) goto enc4S1;
+			else if ( @card1 && !@card2 && !@card3 && !@card4) goto enc4S1;
+			else if ( !@card1 && !@card2 && !@card3 && !@card4) goto enc4S1;
+				
+			enc4S1:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 1 ก่อน!!";
+					close;
+					
+			enc6S1:		
+					mes "[เสริมพลัง]";
+					mes "เจ้าเสริมพลังเทียร์ 2 ไปแล้ว!!";
+					close;
+					
+			enc5S1:				
+			
+				//if (getequiprandomoption(.@id,1,ROA_ID)) goto enc6S;
+				
+					set .RanTier2safe, rand(1,100);
+		if ( .RanTier2safe <= .@successtier2safe ){	
+					set .randfish, rand(1,11);
+		if ( .randfish <= 1 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@ATKk,.@ATKr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ";
+					mes ".. ^006699 ATK^000000 ^ff0066"+ .@ATKr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 2 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@MATKk,.@MATKr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 MATK^000000 ^ff0066"+ .@MATKr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 3 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@SUBNOTHING,.@SUBEler,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff0066"+ .@SUBEler +"^000000%";
+					close;
+					}
+		if ( .randfish <= 4 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@SUBLONGR,.@SUBLONGRr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ลดดาเมจจากการโจมตีระยะไกล^000000 ^ff0066"+ .@SUBLONGRr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 5 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@CASTTIME,.@CASTTIMEr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ลดระยะเวลาในการร่ายสกิล^000000 ^ff0066"+ .@CASTTIMEr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 6 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@Delay,.@Delayr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ลดดีเลย์หลังร่ายสกิล^000000 ^ff0066"+ .@Delayr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 7 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@SUBPLAYER,.@SUBPLAYERr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 ป้องกันกึ่งมนุษย์(Player)^000000 ^ff0066"+ .@SUBPLAYERr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 8 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@ATKPLAYER,.@ATKPLAYERr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีกายภาพ(Player)^000000 ^ff0066"+ .@ATKPLAYERr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 9 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@MATKPLAYER,.@MATKPLAYERr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีเวทย์มนต์(Player)^000000 ^ff0066"+ .@MATKPLAYERr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 10 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@ATKBOSS,.@ATKBOSSr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีกายภาพมอนเตอร์ Boss^000000 ^ff0066"+ .@ATKBOSSr +"^000000%";
+					close;
+					}
+		if ( .randfish <= 11 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 131;
+					setrandomoption(.@id,1,.@MATKBOSS,.@MATKBOSSr,0);
+	next;
+					mes "[เสริมพลัง]";
+					mes "ยินดีด้วยการออฟชั่น ^000099สำเร็จ^000000";
+					mes "ออฟชั่นที่ท่านได้คือ ";
+					mes ".. ^006699 โจมตีเวทย์มนต์มอนเตอร์ Boss^000000 ^ff0066"+ .@MATKBOSSr +"^000000%";
+					close;
+					}
+					}
+		if ( .RanTier2safe <= 100 ){
+					callfunc "Chkprogress2CRT2";
+					specialeffect2 155;
+	next;
+					mes "[เสริมพลัง]";
+					mes "เสียใจด้วยการออฟชั่น ^000099ไม่สำเร็จ^000000";
+					close;
+		}
+					}
+
+case 3:	
+					mes "[เสริมพลัง]";
+					mes "ทำการลบพลังแฝงหรือไม่ ?";
+					mes "ใช้ ^FFFFFF<ITEM>^4D4DFF[Reset Option]^000000<INFO>919902</INFO></ITEM>^000000. 1 ea";
+					mes "ในการลบพลังแฝงทั้งหมด.";
+					mes "";
+					mes "______________________________";
+	next;				
+	switch(select("ยกเลิก","^009900ลบพลังแฝง^000000")) {
+
+	case 1:	
+					mes "[เสริมพลัง]";
+					mes "ไว้มาหาข้าใหม่ได้ทุกเมื่อ";
+					mes "เมื่อเจ้าต้องการ.";
+					close;
+					
+	case 2:	
+					mes "[เสริมพลัง]";
+					mes "เลือกไอเทมที่จะลบพลังแฝง ?";
+	setarray .@indices[1], EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID, EQI_COSTUME_HEAD_LOW, EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON, EQI_SHADOW_SHIELD, EQI_COSTUME_GARMENT, EQI_SHADOW_SHOES, EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+		for( set .@i,1; .@i <= 10; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + F_getpositionname(.@indices[.@i]) + "-[" + getequipname(.@indices[.@i]) + "]";
+	set .@menu$, .@menu$ + ":";
+			}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	for (.@j = 0; .@j < 5; .@j++) {
+		.@OptID[.@j] = getequiprandomoption(.@id,.@j,ROA_ID);
+		.@OptVal[.@j] = getequiprandomoption(.@id,.@j,ROA_VALUE);
+		.@OptParam[.@j] = getequiprandomoption(.@id,.@j,ROA_PARAM);
+	}
+	
+				if ( .@OptID[0] == 0) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมของเจ้ายังไม่ได้ทำการออฟ.";
+					mes "ข้าไม่สามารถลบออฟชั่นให้เจ้าได้";
+					close;
+				}
+				if (countitem(.@part) > 1 ) {
+	next;
+					mes "[เสริมพลัง]";
+					mes "เจ้ามีไอเทมที่เหมือนกัน.";
+					mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+					close;
+				}
+	next;
+					mes "[เสริมพลัง]";
+					mes "ไอเทมที่เจ้าจะลบพลังคือ ^000099" + getequipname(.@id) + "^000000";			
+	next;
+					mes "[เสริมพลัง]";
+					mes "พร้อมนะ ?";
+				if (select( "^000099ใช่^000000.", "ไม่ใช่." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ถ้าเจ้าเปลี่ยนใจ.";
+					mes "ให้มาหาข้าน่ะ.";
+					close;
+				}
+	
+				if (!getequipisequiped(.@id)) { 
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่ได้สวมไอเทม.";
+					close;
+				}
+					callfunc "Chkprogress2CR30";
+					specialeffect2 EF_REPAIRWEAPON;
+					
+					set .@part, getequipid(.@id);
+			.@ref = getequiprefinerycnt(.@id);
+					delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+					getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+					equip .@part;
+	next;
+			mes "[เสริมพลัง]";
+			mes "ทำการลบพลังแฝงเรียบร้อยแล้ว";
+					close;
+					}
+	next;				
+					mes "[เสริมพลัง]";
+					mes "^000099ลบออฟเรียบร้อย^000000.";
+					mes "ขอให้โชคดีในการออฟ.";
+					close;
+		
+	
+case 4:	
+					mes "[เสริมพลัง]";
+					mes "^000099เสริมพลังเทียร์ 1^000000";
+					mes "^006699 เพิ่มค่าประสบการณ์^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่มอัตราการดอร์ป^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 เพิ่ม MaxHP^000000 ^ff0066100^000000 - ^ff0066500^000000";
+					mes "^006699 เพิ่ม MaxSP^000000 ^ff006610^000000 - ^ff006680^000000";
+					mes "^006699 เพิ่ม ASPD^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 เพิ่ม Def^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 เพิ่ม Mdef^000000 ^ff00661^000000 - ^ff00665^000000";
+					mes "^006699 HP Recovery^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 SP Recovery^000000 ^ff00661^000000% - ^ff006610^000000%";
+					mes "^006699 เพิ่ม ป้องกันมอนเตอร์ขนาดเล็ก^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 เพิ่ม ป้องกันมอนเตอร์ขนาดกลาง^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 เพิ่ม ป้องกันมอนเตอร์ขนาดใหญ่^000000 ^ff00661^000000% - ^ff00663^000000%";
+					
+	next;
+					mes "[เสริมพลัง]";
+					mes "^000099เสริมพลังเทียร์ 2^000000";
+					mes "^006699 ATK^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 MATK^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 โจมตีกายภาพมอนเตอร์ Boss^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 โจมตีเวทย์มนต์มอนเตอร์ Boss^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 ป้องกันเวทย์มนต์ทุกธาตุ^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 ป้องกันการโจมตีระยะไกล^000000 ^ff00661^000000% - ^ff00665^000000%";
+					mes "^006699 ลดระยะเวลาในการร่ายสกิล^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 ลดดีเลย์หลังร่ายสกิล^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 ป้องกันกึ่งมนุษย์(Player)^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 โจมตีกายภาพ(Player)^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "^006699 โจมตีเวทย์มนต์(Player)^000000 ^ff00661^000000% - ^ff00663^000000%";
+					mes "                                             ";
+					mes "                                         ^006699  by^000000. มารี";
+					close;
+	case 5:	
+					mes "[เสริมพลัง]";
+					mes "ไว้เจ้าพร้อมแล้วมาหาข้าได้ทุกเมือ!!";
+					close;
+	}
+	
+OnInit:
+	setarray .messages$," ","O","p","t","i","o","n"," ","C","o","s","t","u","m","e";
+	while( 1 )
+	{
+		set .Display$,"";
+		for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+		{
+			set .Display$,.Display$ + .messages$[.i];
+			delwaitingroom;
+			waitingroom .Display$,0;
+			sleep 100;
+		}
+	sleep 1000;
+	}
+	end;
+	
+}
+
+function	script	Chkprogress2C1	{
+	next;
+	.cost = 1; // จำนวนไอเทม
+	.Ori = 10; // จำนวนไอเทม
+	.Elu = 10; // จำนวนไอเทม
+	.Zeny = 500000; // จำนวนเงิน
+				if (countitem(919900) < .cost){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919900</INFO></ITEM>^000000 1 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 919900,.cost;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
+
+function	script	Chkprogress2CR2	{
+	next;
+	.cost = 1; // จำนวนไอเทม
+	.Ori = 10; // จำนวนไอเทม
+	.Elu = 10; // จำนวนไอเทม
+	.Zeny = 500000; // จำนวนเงิน
+	
+				if (countitem(919901) < .cost){ 
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919901</INFO></ITEM>^000000 1 ea";	// ไอเทมการันตี
+					close;
+				}
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 919901,.cost;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
+function	script	Chkprogress2CR30	{
+	next;
+	.cost = 1; // จำนวนไอเทมการันตี
+				if (countitem(919902) < .cost){ 
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ลบออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Reset Option]^000000<INFO>919902</INFO></ITEM>^000000 1 ea";	// ไอเทมการันตี
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 919902,.cost;
+	return;
+}
+
+
+
+function	script	Chkprogress2CRXXX1	{
+	next;
+	.cost = 1; // จำนวนไอเทม
+	.Ori = 10; // จำนวนไอเทม
+	.Elu = 10; // จำนวนไอเทม
+	.Zeny = 500000; // จำนวนเงิน
+	
+				if (countitem(919900) < .cost){ //รหัสไอเทมทั้วไป
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919900</INFO></ITEM>^000000 1 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 919900,.cost;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
+
+function	script	Chkprogress2CRT1	{
+	next;
+	.cost = 1; // จำนวนไอเทม
+	.Prevent = 1; // จำนวนไอเทม
+	.Ori = 10; // จำนวนไอเทม
+	.Elu = 10; // จำนวนไอเทม
+	.Zeny = 500000; // จำนวนเงิน
+	
+				if (countitem(919900) < .cost){ //รหัสไอเทมทั้วไป
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919900</INFO></ITEM>^000000 1 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(919901) < .cost){ //รหัสไอเทมทั้วไป
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Prevent Option]^000000<INFO>919901</INFO></ITEM>^000000 1 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 919900,.cost;
+		delitem 919901,.Prevent;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
+
+
+function	script	Chkprogress2CRXXX2	{
+	next;
+	.cost = 1; // จำนวนไอเทม
+	.Ori = 10; // จำนวนไอเทม
+	.Elu = 10; // จำนวนไอเทม
+	.Zeny = 800000; // จำนวนเงิน
+	
+				if (countitem(919900) < .cost){ //รหัสไอเทมทั้วไป
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919900</INFO></ITEM>^000000 1 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 919900,.cost;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
+
+
+
+function	script	Chkprogress2CRT2	{
+	next;
+	.cost = 1; // จำนวนไอเทม
+	.Prevent = 1; // จำนวนไอเทม
+	.Ori = 10; // จำนวนไอเทม
+	.Elu = 10; // จำนวนไอเทม
+	.Zeny = 800000; // จำนวนเงิน
+	
+				if (countitem(919900) < .cost){ //รหัสไอเทมทั้วไป
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Option Tier Games One]^000000<INFO>919900</INFO></ITEM>^000000 1 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(919901) < .cost){ //รหัสไอเทมทั้วไป
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Prevent Option]^000000<INFO>919901</INFO></ITEM>^000000 1 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(984) < .Ori){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (countitem(985) < .Elu){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 10 ea";	// ไอเทมทั้วไป
+					close;
+				}
+				if (Zeny < .Zeny){
+					mes "[เสริมพลัง]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .Zeny +" ^000000Zeny";	
+					close;
+				}
+					mes "[เสริมพลัง]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[เสริมพลัง]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close;
+				}
+					//specialeffect2 EF_REPAIRWEAPON;
+					//progressbar "0x00ff00",3;
+		delitem 919900,.cost;
+		delitem 919901,.Prevent;
+		delitem 984,.Ori;
+		delitem 985,.Elu;
+		set Zeny,(Zeny-.Zeny);
+	return;
+}
